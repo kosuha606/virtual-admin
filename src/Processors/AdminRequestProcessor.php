@@ -7,6 +7,7 @@ use kosuha606\VirtualAdmin\Domains\Transaction\TransactionVm;
 use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
 use kosuha606\VirtualAdmin\Form\SecondaryFormService;
 use kosuha606\VirtualAdmin\Interfaces\AdminControllerInterface;
+use kosuha606\VirtualAdmin\Interfaces\AdminRoutesLoaderInterface;
 use kosuha606\VirtualAdmin\Services\AdminConfigService;
 use kosuha606\VirtualAdmin\Services\AlertService;
 use kosuha606\VirtualAdmin\Services\MenuService;
@@ -58,6 +59,9 @@ class AdminRequestProcessor
      * @var UserService
      */
     private $userService;
+
+    /** @var AdminRoutesLoaderInterface[] */
+    private $routeLoaders = [];
 
     /**
      * @var SecondaryFormService
@@ -332,10 +336,32 @@ class AdminRequestProcessor
     /**
      * @param $dir
      */
-    public function loadConfig($dir)
+    public function loadConfig($dir = null)
     {
-        $this->setConfig($this->adminConfigService->loadConfigs($dir));
+        if ($dir) {
+            $this->setConfig($this->adminConfigService->loadConfigs($dir));
+        } else {
+            $config = [];
+
+            foreach ($this->routeLoaders as $routeLoader) {
+                $config = AdminConfigService::merge($config, $routeLoader->routesData());
+            }
+
+            $this->setConfig($config);
+        }
+
         $this->menuService->processConfig($this->getConfig());
+    }
+
+    /**
+     * @param AdminRoutesLoaderInterface $routesLoader
+     * @return AdminRequestProcessor
+     */
+    public function addRoutesLoader(AdminRoutesLoaderInterface $routesLoader)
+    {
+        $this->routeLoaders[] = $routesLoader;
+
+        return $this;
     }
 
     /**
