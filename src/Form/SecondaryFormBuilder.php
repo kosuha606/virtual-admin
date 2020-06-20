@@ -2,7 +2,9 @@
 
 namespace kosuha606\VirtualAdmin\Form;
 
+use kosuha606\VirtualAdmin\Services\StringService;
 use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 use yii\helpers\Inflector;
 
 /**
@@ -38,11 +40,17 @@ class SecondaryFormBuilder
      */
     private $formService;
 
+    /**
+     * @var StringService
+     */
+    private $stringService;
+
     public function __construct(
         SecondaryFormService $formService
     ) {
         $this->formService = $formService;
         $this->id = $this->formService->getFormTypeCounter();
+        $this->stringService = ServiceManager::getInstance()->get(StringService::class);
     }
 
     /**
@@ -147,7 +155,7 @@ class SecondaryFormBuilder
 
         return [
             'tab' => $this->getTabName(),
-            'tabLink' => Inflector::slug($this->getTabName()),
+            'tabLink' => $this->stringService->transliterate($this->getTabName()),
             'type' => $this->getRelationType(),
             'initialConfig' => $initialConfigData,
             'relationClass' => $this->getRelationClass(),

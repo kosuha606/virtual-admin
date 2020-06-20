@@ -1,11 +1,11 @@
 <?php
 
-use app\virtualModels\Admin\Test\TestCacheProvider;
-use app\virtualModels\Admin\Test\TestSearchProvider;
-use app\virtualModels\Admin\Test\TestTransactionProvider;
-use app\virtualModels\Classes\Pagination;
-use app\virtualModels\Controllers\CrudController;
-use app\virtualModels\Model\ProductVm;
+use kosuha606\VirtualAdmin\Test\TestCacheProvider;
+use kosuha606\VirtualAdmin\Test\TestSearchProvider;
+use kosuha606\VirtualAdmin\Test\TestTransactionProvider;
+use kosuha606\VirtualAdmin\Classes\Pagination;
+use kosuha606\VirtualAdmin\Controllers\CrudController;
+use kosuha606\VirtualAdmin\Test\Models\ProductVm;
 use kosuha606\VirtualModel\Example\MemoryModelProvider;
 use kosuha606\VirtualModel\VirtualModelManager;
 use PHPUnit\Framework\TestCase;
@@ -18,6 +18,9 @@ class CrudControllerTest extends TestCase
     /** @var CrudController */
     private $controller;
 
+    /**
+     * @throws Exception
+     */
     public function setUp()
     {
         $this->provider = new MemoryModelProvider();

@@ -1,6 +1,6 @@
 <?php
 
-namespace kosuha606\VirtualAdmin\Domains\Comment\Models;
+namespace kosuha606\VirtualAdmin\Domains\Comment;
 
 use kosuha606\VirtualModel\VirtualModel;
 
