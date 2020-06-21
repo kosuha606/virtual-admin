@@ -3,8 +3,8 @@
 namespace kosuha606\VirtualAdmin\Domains\Multilang;
 
 use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelManager;
 use kosuha606\VirtualModelHelppack\ServiceManager;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Multilang
@@ -18,6 +18,14 @@ class TranslationService
     public $autoTranslateLimit = 10;
 
     public $autoTranslateRequestsCount = 0;
+
+    /** @var AutoTranslatorProviderInterface */
+    private $autoTranslateProvider;
+
+    public function __construct()
+    {
+        $this->autoTranslateProvider = VirtualModelManager::getInstance()->getProvider(AutoTranslatorProviderInterface::class);
+    }
 
     public function translate($value)
     {
@@ -58,10 +66,7 @@ class TranslationService
             return '';
         }
 
-        $tr = new GoogleTranslate();
-        $tr->setSource($this->sourceLang);
-        $tr->setTarget($langVm->code);
-        $translated = $tr->translate($model->$field);
+        $translated = $this->autoTranslateProvider->autoTranslate($this->sourceLang, $langVm->code, $model->$field);
         $this->autoTranslateRequestsCount++;
 
         TranslationVm::create([

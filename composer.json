@@ -12,8 +12,7 @@
   "require": {
     "php": ">=7.0.0",
     "kosuha606/virtual-model": ">=1.2.3",
-    "kosuha606/virtual-model-helppack": "^0.0.9",
-    "stichoza/google-translate-php": "^4.1"
+    "kosuha606/virtual-model-helppack": "^0.0.9"
   },
   "autoload": {
     "psr-4": {
