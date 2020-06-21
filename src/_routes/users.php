@@ -1,7 +1,7 @@
 <?php
 
 
-use app\virtualModels\Model\UserVm;
+use kosuha606\VirtualAdmin\Domains\User\UserVm;
 use kosuha606\VirtualAdmin\Services\StringService;
 use kosuha606\VirtualAdmin\Structures\DetailComponents;
 use kosuha606\VirtualAdmin\Structures\ListComponents;

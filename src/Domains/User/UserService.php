@@ -3,7 +3,7 @@
 namespace kosuha606\VirtualAdmin\Domains\User;
 
 use kosuha606\VirtualModel\VirtualModelManager;
-use app\virtualModels\Model\UserVm;
+use kosuha606\VirtualAdmin\Domains\User\UserVm;
 
 class UserService
 {

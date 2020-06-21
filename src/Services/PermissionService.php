@@ -3,7 +3,7 @@
 namespace kosuha606\VirtualAdmin\Services;
 
 use kosuha606\VirtualAdmin\Model\Permission;
-use app\virtualModels\Model\UserVm;
+use kosuha606\VirtualAdmin\Domains\User\UserVm;
 use kosuha606\VirtualModel\VirtualModel;
 
 /**

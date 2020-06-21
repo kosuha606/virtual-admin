@@ -1,8 +1,8 @@
 <?php
 
-use app\virtualModels\Model\AdVm;
-use app\virtualModels\Structures\DetailComponents;
-use app\virtualModels\Structures\ListComponents;
+use kosuha606\VirtualAdmin\Domains\User\UserVm;
+use kosuha606\VirtualAdmin\Structures\DetailComponents;
+
 
 return [
     'routes' => [
