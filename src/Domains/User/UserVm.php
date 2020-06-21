@@ -1,6 +1,6 @@
 <?php
 
-namespace app\virtualModels\Model;
+namespace kosuha606\VirtualAdmin\Domains\User;
 
 use kosuha606\VirtualAdmin\Services\PermissionService;
 use kosuha606\VirtualModel\VirtualModel;
