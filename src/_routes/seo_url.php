@@ -1,8 +1,13 @@
 <?php
 
 
+use kosuha606\VirtualAdmin\Domains\Seo\SeoModelInterface;
+use kosuha606\VirtualAdmin\Domains\Seo\SeoService;
 use kosuha606\VirtualAdmin\Domains\Seo\SeoUrlVm;
+use kosuha606\VirtualAdmin\Dto\AdminResponseDTO;
+use kosuha606\VirtualAdmin\Services\AlertService;
 use kosuha606\VirtualAdmin\Services\StringService;
+use kosuha606\VirtualModel\VirtualModelManager;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
 $baseEntity = 'seo_url';
@@ -15,6 +20,31 @@ $detailTitle = 'Генерировать url';
 return [
     'routes' => [
         $baseEntity => [
+            'regen' => [
+                'handler' => function() {
+                    $result = [
+                        'result' => true
+                    ];
+                    $modelClasses = VirtualModelManager::getInstance()->getProvider('storage')->getAvailableModelClasses();
+                    $seoService = ServiceManager::getInstance()->get(SeoService::class);
+
+                    foreach ($modelClasses as $modelClass) {
+                        if (!class_implements($modelClass, SeoModelInterface::class)) {
+                            continue;
+                        }
+
+                        $models = $modelClass::many(['where' => [['all']]]);
+
+                        foreach ($models as $model) {
+                            $seoService->generateUrlByModel($model);
+                        }
+                    }
+
+                    ServiceManager::getInstance()->get(AlertService::class)->success('Успешно сгенерированы url');
+
+                    return new AdminResponseDTO('', $result);
+                }
+            ],
             'detail' => [
                 'menu' => [
                     'name' => $baseEntity.'_detail',
