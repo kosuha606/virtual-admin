@@ -9,7 +9,7 @@
 
 <script>
     import CKEditor from '@ckeditor/ckeditor5-vue';
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import Editor from '../../ckeditor5/build/ckeditor';
     import {clone} from 'lodash';
 
     export default {
@@ -19,6 +19,7 @@
             ckeditor: CKEditor.component,
         },
         created() {
+            console.log('test');
             if (this.value) {
                 this.content = clone(this.value);
             }
@@ -31,8 +32,46 @@
         data() {
             return {
                 content: '',
-                editor: ClassicEditor,
+                editor: Editor,
                 editorConfig: {
+                    toolbar: {
+                        items: [
+                            'heading',
+                            '|',
+                            'bold',
+                            'italic',
+                            'link',
+                            'bulletedList',
+                            'numberedList',
+                            '|',
+                            'indent',
+                            'outdent',
+                            '|',
+                            'imageUpload',
+                            'blockQuote',
+                            'insertTable',
+                            'codeBlock',
+                            'mediaEmbed',
+                            'undo',
+                            'redo'
+                        ]
+                    },
+                    language: 'ru',
+                    image: {
+                        toolbar: [
+                            'imageTextAlternative',
+                            'imageStyle:full',
+                            'imageStyle:side'
+                        ]
+                    },
+                    table: {
+                        contentToolbar: [
+                            'tableColumn',
+                            'tableRow',
+                            'mergeTableCells'
+                        ]
+                    },
+                    licenseKey: '',
                     ckfinder: {
                         uploadName: 'test',
                         uploadUrl: '/file/ckeditor'

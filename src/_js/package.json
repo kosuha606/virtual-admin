@@ -22,10 +22,12 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^19.0.0",
+    "@ckeditor/ckeditor5-code-block": "^20.0.0",
     "@ckeditor/ckeditor5-upload": "^19.0.0",
     "@ckeditor/ckeditor5-vue": "^1.0.1",
     "admin-lte": "^3.0.5",
     "chart.js": "^2.9.3",
+    "ckeditor5-build-full": "^1.0.4",
     "jquery": "^3.4.1",
     "laravel-mix": "^5.0.4",
     "lodash": "^4.17.15",
