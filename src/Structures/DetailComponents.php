@@ -19,7 +19,7 @@ class DetailComponents
 
     private static $translationForms = [];
 
-    const INPUT_FIELD = 'InputField';
+    const INPUT_FIELD = 'PasswordField';
 
     const HTML_FIELD = 'HtmlField';
 
