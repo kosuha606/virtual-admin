@@ -67,6 +67,11 @@ class TranslationService
         }
 
         $translated = $model->$field;
+
+        if (!$model->id) {
+            return $translated;
+        }
+
         try {
             $translated = $this->autoTranslateProvider->autoTranslate($this->sourceLang, $langVm->code, $model->$field);
             $this->autoTranslateRequestsCount++;
