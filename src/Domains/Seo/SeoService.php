@@ -2,11 +2,20 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
+use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
+
 /**
  * @package kosuha606\VirtualAdmin\Domains\Seo
  */
 class SeoService
 {
+    private $langService;
+
+    public function __construct(LanguageService $languageService)
+    {
+        $this->langService = $languageService;
+    }
+
     /**
      * Получить SeoPageVm по урл адресу
      *
@@ -16,6 +25,12 @@ class SeoService
      */
     public function findSeoPageByUrl($url)
     {
+        $languages = array_keys($this->langService->getLanguages());
+        $languages = array_map(function($item) {
+            return '/'.$item.'/';
+        }, $languages);
+        $url = str_replace($languages, '/', $url);
+
         $seoPage = SeoPageVm::one(['where' => [
             ['=', 'url', $url]
         ]]);

@@ -66,16 +66,22 @@ class TranslationService
             return '';
         }
 
-        $translated = $this->autoTranslateProvider->autoTranslate($this->sourceLang, $langVm->code, $model->$field);
-        $this->autoTranslateRequestsCount++;
+        $translated = $model->$field;
+        try {
+            $translated = $this->autoTranslateProvider->autoTranslate($this->sourceLang, $langVm->code, $model->$field);
+            $this->autoTranslateRequestsCount++;
 
-        TranslationVm::create([
-            'entity_id' => $model->id,
-            'entity_class' => get_class($model),
-            'lang_id' => $langVm->id,
-            'attribute' => $field,
-            'data' => $translated,
-        ])->save();
+            $newTranslation = TranslationVm::create([
+                'entity_id' => $model->id,
+                'entity_class' => get_class($model),
+                'lang_id' => $langVm->id,
+                'attribute' => $field,
+                'data' => $translated,
+            ]);
+            $newTranslation->save();
+        } catch (\Exception $exception) {
+            // nothing
+        }
 
         return $translated;
     }

@@ -2,6 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
+use kosuha606\VirtualAdmin\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModel;
 
 /**
@@ -26,6 +27,8 @@ use kosuha606\VirtualModel\VirtualModel;
  */
 class SeoPageVm extends VirtualModel
 {
+    use MultilangTrait;
+
     public function attributes(): array
     {
         return [

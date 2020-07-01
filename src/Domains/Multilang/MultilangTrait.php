@@ -36,7 +36,7 @@ trait MultilangTrait
             return $this->$name;
         }
 
-        $modelClass = self::class;
+        $modelClass = static::class;
         $translation = TranslationVm::one([
             'where' => [
                 ['=', 'entity_id', $this->id],
