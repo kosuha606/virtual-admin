@@ -4,7 +4,7 @@ namespace kosuha606\VirtualAdmin\Domains\Sitemap;
 
 use kosuha606\VirtualAdmin\Domains\Seo\SeoModelInterface;
 use kosuha606\VirtualAdmin\Domains\Seo\SeoPageVm;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
@@ -47,7 +47,7 @@ class SitemapService
         }
 
         // Записываем в карту сайта все сущности
-        /** @var VirtualModel $storageClass */
+        /** @var VirtualModelEntity $storageClass */
         foreach ($storageClasses as $storageClass) {
             if (class_implements($storageClass, SeoModelInterface::class)) {
                 $models = $storageClass::many(['where' => [['all']]]);

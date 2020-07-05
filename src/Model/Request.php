@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Model;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @property $get
@@ -10,7 +10,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $isAjax
  * @property $isPost
  */
-class Request extends VirtualModel
+class Request extends VirtualModelEntity
 {
     const TYPE = 'request';
 

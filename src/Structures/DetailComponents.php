@@ -6,7 +6,7 @@ use kosuha606\VirtualAdmin\Form\SecondaryFormBuilder;
 use kosuha606\VirtualAdmin\Form\SecondaryFormService;
 use kosuha606\VirtualAdmin\Domains\Multilang\LangVm;
 use kosuha606\VirtualAdmin\Domains\Multilang\TranslationVm;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
 /**
@@ -55,7 +55,7 @@ class DetailComponents
         $model
     ) {
         if (!self::$langs) {
-            self::$langs = VirtualModel::allToArray(LangVm::many(['where' => [['all']]]));
+            self::$langs = VirtualModelEntity::allToArray(LangVm::many(['where' => [['all']]]));
         }
 
         $modelClass = get_class($model);
@@ -74,7 +74,7 @@ class DetailComponents
         }
 
         $existedItems = [];
-        $translations = VirtualModel::allToArray(TranslationVm::many([
+        $translations = VirtualModelEntity::allToArray(TranslationVm::many([
             'where' => [
                 ['=', 'entity_id', $model->id],
                 ['=', 'entity_class', $modelClass],

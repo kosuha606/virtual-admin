@@ -4,6 +4,7 @@ namespace kosuha606\VirtualAdmin\Domains\Search;
 
 use kosuha606\VirtualModel\VirtualModelManager;
 
+
 /**
  * @package kosuha606\VirtualAdmin\Domains\Search
  */

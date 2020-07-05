@@ -4,7 +4,7 @@ namespace kosuha606\VirtualAdmin\Controllers;
 
 use kosuha606\VirtualAdmin\Domains\Transaction\TransactionVm;
 use kosuha606\VirtualAdmin\Classes\Pagination;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 class CrudController
 {
@@ -26,7 +26,7 @@ class CrudController
             $pagination->totals = 999;
         }
 
-        /** @var VirtualModel $modelClass */
+        /** @var VirtualModelEntity $modelClass */
         $models = $modelClass::many([
             'where' => $filter,
             'orderBy' => $orderBy,
@@ -40,12 +40,12 @@ class CrudController
     /**
      * @param $modelClass
      * @param $id
-     * @return VirtualModel
+     * @return VirtualModelEntity
      * @throws \Exception
      */
     public function actionView($modelClass, $id, $data = [])
     {
-        /** @var VirtualModel $modelClass */
+        /** @var VirtualModelEntity $modelClass */
         $model = $modelClass::one([
             'where' => [
                 ['=', 'id', $id]
@@ -73,7 +73,7 @@ class CrudController
         try {
             TransactionVm::begin('crud_edit');
 
-            /** @var VirtualModel $modelClass */
+            /** @var VirtualModelEntity $modelClass */
             if ($id) {
                 $model = $modelClass::one([
                     'where' => [

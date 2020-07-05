@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Design;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -10,7 +10,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $widget_class
  *
  */
-class WidgetVm extends VirtualModel
+class WidgetVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

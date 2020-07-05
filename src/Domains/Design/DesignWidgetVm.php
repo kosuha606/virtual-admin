@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Design;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -13,7 +13,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $config
  *
  */
-class DesignWidgetVm extends VirtualModel
+class DesignWidgetVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

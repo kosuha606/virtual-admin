@@ -2,13 +2,13 @@
 
 namespace kosuha606\VirtualAdmin\Model;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @property $key
  * @property $value
  */
-class Session extends VirtualModel
+class Session extends VirtualModelEntity
 {
     const TYPE = 'session';
 

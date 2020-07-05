@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Search;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -20,7 +20,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @method static search($text)
  * @method static advancedSearch($config)
  */
-class SearchVm extends VirtualModel
+class SearchVm extends VirtualModelEntity
 {
     const KEY = 'search';
 

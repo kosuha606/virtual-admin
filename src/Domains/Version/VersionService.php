@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Version;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Version
@@ -25,7 +25,7 @@ class VersionService
 
         $entityClass = $version->entity_class;
         $entityId = $version->entity_id;
-        /** @var VirtualModel $entity */
+        /** @var VirtualModelEntity $entity */
         $entity = $entityClass::one(['where' => [
             ['=', 'id', $entityId]
         ]]);

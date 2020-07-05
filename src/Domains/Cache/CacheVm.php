@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Cache;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -20,7 +20,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @method static deleteData($tableName, $whereConfig)
  *
  */
-class CacheVm extends VirtualModel
+class CacheVm extends VirtualModelEntity
 {
     const KEY = 'cache';
 

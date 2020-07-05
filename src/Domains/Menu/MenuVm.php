@@ -3,9 +3,9 @@
 namespace kosuha606\VirtualAdmin\Domains\Menu;
 
 use kosuha606\VirtualAdmin\Domains\Multilang\MultilangTrait;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
-class MenuVm extends VirtualModel
+class MenuVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

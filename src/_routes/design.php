@@ -8,7 +8,7 @@ use kosuha606\VirtualAdmin\Form\SecondaryFormService;
 use kosuha606\VirtualAdmin\Services\StringService;
 use kosuha606\VirtualAdmin\Structures\DetailComponents;
 use kosuha606\VirtualAdmin\Structures\ListComponents;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
 $stringService = ServiceManager::getInstance()->get(StringService::class);

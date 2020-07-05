@@ -3,7 +3,7 @@
 namespace kosuha606\VirtualAdmin\Domains\User;
 
 use kosuha606\VirtualAdmin\Services\PermissionService;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
 /**
@@ -11,7 +11,7 @@ use kosuha606\VirtualModelHelppack\ServiceManager;
  * @package kosuha606\Model\iteration2\model
  * @property $id
  */
-class UserVm extends VirtualModel
+class UserVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

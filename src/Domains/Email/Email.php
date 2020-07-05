@@ -2,12 +2,12 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Email;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Email
  */
-class Email extends VirtualModel
+class Email extends VirtualModelEntity
 {
     const KEY = 'email';
 

@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -13,7 +13,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $order
  *
  */
-class SeoFilterVm extends VirtualModel
+class SeoFilterVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

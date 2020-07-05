@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Test\Models;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * Продукт
@@ -18,7 +18,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $category_id
  *
  */
-class ProductVm extends VirtualModel
+class ProductVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

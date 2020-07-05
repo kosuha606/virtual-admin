@@ -12,7 +12,7 @@ use kosuha606\VirtualAdmin\Services\AdminConfigService;
 use kosuha606\VirtualAdmin\Services\AlertService;
 use kosuha606\VirtualAdmin\Services\MenuService;
 use kosuha606\VirtualAdmin\Services\PermissionService;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ValidatableVirtualModel;
 use kosuha606\VirtualAdmin\Domains\User\UserService;
 use kosuha606\VirtualAdmin\Classes\Pagination;
@@ -206,7 +206,7 @@ class AdminRequestProcessor
                             $filter = array_merge($filter, $handler['filter']);
                         }
 
-                        $response->json['models'] = VirtualModel::allToArray($this->crudController->actionList(
+                        $response->json['models'] = VirtualModelEntity::allToArray($this->crudController->actionList(
                             $crudModel,
                             $pagination,
                             $filter,

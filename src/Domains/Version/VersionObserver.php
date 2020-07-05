@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Version;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * Наблюдатель для сущностей VM для которых нужно следить за версиями данных
@@ -11,10 +11,10 @@ use kosuha606\VirtualModel\VirtualModel;
 class VersionObserver
 {
     /**
-     * @param VirtualModel $model
+     * @param VirtualModelEntity $model
      * @throws \Exception
      */
-    private function deleteLastVersions(VirtualModel $model)
+    private function deleteLastVersions(VirtualModelEntity $model)
     {
         $entityId = $model->id;
         $entityClass = get_class($model);
@@ -37,7 +37,7 @@ class VersionObserver
      * @param $model
      * @throws \Exception
      */
-    public function beforeSave(VirtualModel $model)
+    public function beforeSave(VirtualModelEntity $model)
     {
         if (!$model->id) {
             return;

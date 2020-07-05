@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -12,7 +12,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $url
  * @property $created_at
  */
-class SeoUrlVm extends VirtualModel
+class SeoUrlVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

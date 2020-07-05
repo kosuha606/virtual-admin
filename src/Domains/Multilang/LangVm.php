@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Multilang;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -12,7 +12,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $is_default
  *
  */
-class LangVm extends VirtualModel
+class LangVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

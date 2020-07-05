@@ -2,13 +2,13 @@
 
 namespace kosuha606\VirtualAdmin\Model;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @property $type
  * @property $message
  */
-class Alert extends VirtualModel
+class Alert extends VirtualModelEntity
 {
     public static function providerType()
     {

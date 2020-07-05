@@ -4,7 +4,7 @@ namespace kosuha606\VirtualAdmin\Form;
 
 use kosuha606\VirtualAdmin\Services\RequestService;
 use kosuha606\VirtualAdmin\Services\SessionService;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * Сервис отвечающий за работу с второстепенными формами сущности
@@ -104,7 +104,7 @@ class SecondaryFormService
 
         /**
          * Создаем новые связанные модели
-         * @var VirtualModel $modelClass
+         * @var VirtualModelEntity $modelClass
          * @var  $data
          */
         foreach ($postData[self::SESSION_KEY] as $modelClass => $data) {
@@ -120,7 +120,7 @@ class SecondaryFormService
                     $value,
                 ];
             }
-            /** @var VirtualModel[] $oldModels */
+            /** @var VirtualModelEntity[] $oldModels */
             $oldModels = $modelClass::many(['where' => $where], 'id');
 
             foreach ($data as $attributes) {

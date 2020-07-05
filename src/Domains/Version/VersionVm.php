@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Version;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -14,7 +14,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $disable_restore
  *
  */
-class VersionVm extends VirtualModel
+class VersionVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

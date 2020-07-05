@@ -2,13 +2,13 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Sitemap;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @property SitemapItemDto[] $items
  * @method static getSitemapContent()
  */
-class SitemapVm extends VirtualModel
+class SitemapVm extends VirtualModelEntity
 {
     public static function providerType()
     {

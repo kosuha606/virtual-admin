@@ -4,7 +4,7 @@ namespace kosuha606\VirtualAdmin\Services;
 
 use kosuha606\VirtualAdmin\Model\Permission;
 use kosuha606\VirtualAdmin\Domains\User\UserVm;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @package kosuha606\VirtualAdmin\Services
@@ -58,7 +58,7 @@ class PermissionService
      * @param $user
      * @throws \Exception
      */
-    public function ensureEntityAvailable(VirtualModel $entity, UserVm $user)
+    public function ensureEntityAvailable(VirtualModelEntity $entity, UserVm $user)
     {
         /** @var Permission $permission */
         $permission = Permission::one(['where' => [

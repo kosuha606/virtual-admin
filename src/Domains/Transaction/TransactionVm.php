@@ -2,14 +2,14 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Transaction;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @method static begin($name)
  * @method static commit($name)
  * @method static rollback($name)
  */
-class TransactionVm extends VirtualModel
+class TransactionVm extends VirtualModelEntity
 {
     const KEY = 'transation';
 

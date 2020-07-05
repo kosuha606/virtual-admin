@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -24,7 +24,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $sitemap_freq
  *
  */
-class SeoPageVm extends VirtualModel
+class SeoPageVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

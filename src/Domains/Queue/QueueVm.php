@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Queue;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -11,7 +11,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $created_at
  *
  */
-class QueueVm extends VirtualModel
+class QueueVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

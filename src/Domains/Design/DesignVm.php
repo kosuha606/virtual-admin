@@ -2,13 +2,13 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Design;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @property $priority
  * @property $template
  */
-class DesignVm extends VirtualModel
+class DesignVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

@@ -2,12 +2,12 @@
 
 namespace kosuha606\VirtualAdmin\Model;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @package kosuha606\VirtualAdmin\Model
  */
-class Permission extends VirtualModel
+class Permission extends VirtualModelEntity
 {
     const TYPE = 'permission';
 

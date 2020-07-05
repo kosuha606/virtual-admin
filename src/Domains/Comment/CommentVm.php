@@ -2,7 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Comment;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  *
@@ -13,7 +13,7 @@ use kosuha606\VirtualModel\VirtualModel;
  * @property $content
  *
  */
-class CommentVm extends VirtualModel
+class CommentVm extends VirtualModelEntity
 {
     public function attributes(): array
     {

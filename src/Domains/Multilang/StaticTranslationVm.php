@@ -2,12 +2,12 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Multilang;
 
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Multilang
  */
-class StaticTranslationVm extends VirtualModel
+class StaticTranslationVm extends VirtualModelEntity
 {
     use MultilangTrait;
 
