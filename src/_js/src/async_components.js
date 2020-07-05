@@ -3,6 +3,7 @@ import Vue from 'vue';
 
 
 Vue.component('InputField', () => import('./ui/form/InputField'));
+Vue.component('PasswordField', () => import('./ui/form/PasswordField'));
 Vue.component('MultilangField', () => import('./ui/form/MultilangField'));
 Vue.component('HiddenField', () => import('./ui/form/HiddenField'));
 Vue.component('TextField', () => import('./ui/form/TextField'));

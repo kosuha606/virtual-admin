@@ -11,6 +11,7 @@ use kosuha606\VirtualModel\VirtualModelEntity;
  * @property $model_id
  * @property $model_class
  * @property $content
+ * @property $created_at
  *
  */
 class CommentVm extends VirtualModelEntity
@@ -23,6 +24,7 @@ class CommentVm extends VirtualModelEntity
             'model_id',
             'model_class',
             'content',
+            'created_at',
         ];
     }
 }

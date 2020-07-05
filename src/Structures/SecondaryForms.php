@@ -57,36 +57,41 @@ class SecondaryForms
                         'component' => DetailComponents::HIDDEN_FIELD,
                         'value' => get_class($model),
                     ],
-                    [
-                        'field' => 'title',
-                        'label' => 'Заголовок',
-                        'component' => DetailComponents::INPUT_FIELD,
-                        'value' => $inModel->title,
-                    ],
-                    [
-                        'field' => 'meta_keywords',
-                        'label' => 'Мета ключевые слова',
-                        'component' => DetailComponents::INPUT_FIELD,
-                        'value' => $inModel->meta_keywords,
-                    ],
-                    [
-                        'field' => 'mata_description',
-                        'label' => 'Мета описание',
-                        'component' => DetailComponents::TEXTAREA_FIELD,
-                        'value' => $inModel->mata_description,
-                    ],
-                    [
-                        'field' => 'og_title',
-                        'label' => 'OG заголовок',
-                        'component' => DetailComponents::INPUT_FIELD,
-                        'value' => $inModel->og_title,
-                    ],
-                    [
-                        'field' => 'og_description',
-                        'label' => 'OG описание',
-                        'component' => DetailComponents::TEXTAREA_FIELD,
-                        'value' => $inModel->og_description,
-                    ],
+                    DetailComponents::MULTILANG_FIELD(
+                        DetailComponents::INPUT_FIELD,
+                        'title',
+                        'Заголовок',
+                        $inModel->title,
+                        $inModel
+                    ),
+                    DetailComponents::MULTILANG_FIELD(
+                        DetailComponents::INPUT_FIELD,
+                        'meta_keywords',
+                        'Мета ключевые слова',
+                        $inModel->meta_keywords,
+                        $inModel
+                    ),
+                    DetailComponents::MULTILANG_FIELD(
+                        DetailComponents::INPUT_FIELD,
+                        'mata_description',
+                        'Мета описание',
+                        $inModel->mata_description,
+                        $inModel
+                    ),
+                    DetailComponents::MULTILANG_FIELD(
+                        DetailComponents::INPUT_FIELD,
+                        'og_title',
+                        'OG заголовок',
+                        $inModel->og_title,
+                        $inModel
+                    ),
+                    DetailComponents::MULTILANG_FIELD(
+                        DetailComponents::INPUT_FIELD,
+                        'og_description',
+                        'OG описание',
+                        $inModel->og_description,
+                        $inModel
+                    ),
                     [
                         'field' => 'og_url',
                         'label' => 'OG адресс',

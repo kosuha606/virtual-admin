@@ -21,6 +21,8 @@ class DetailComponents
 
     const INPUT_FIELD = 'InputField';
 
+    const PASSWORD_FIELD = 'PasswordField';
+
     const HTML_FIELD = 'HtmlField';
 
     const HIDDEN_FIELD = 'HiddenField';

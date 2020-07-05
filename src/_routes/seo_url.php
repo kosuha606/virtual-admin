@@ -28,6 +28,7 @@ return [
                     $modelClasses = VirtualModelManager::getInstance()->getProvider('storage')->getAvailableModelClasses();
                     $seoService = ServiceManager::getInstance()->get(SeoService::class);
 
+                    SeoUrlVm::deleteByCondition(['where' => '1']);
                     foreach ($modelClasses as $modelClass) {
                         if (!class_implements($modelClass, SeoModelInterface::class)) {
                             continue;

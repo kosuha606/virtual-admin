@@ -344,6 +344,9 @@ class AdminRequestProcessor
             $config = [];
 
             foreach ($this->routeLoaders as $routeLoader) {
+                if (method_exists($routeLoader, 'changeExistedRoutes')) {
+                    $routeLoader->changeExistedRoutes($config);
+                }
                 $config = AdminConfigService::merge($config, $routeLoader->routesData());
             }
 

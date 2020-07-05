@@ -3,12 +3,24 @@
 namespace kosuha606\VirtualAdmin\Domains\Design;
 
 use kosuha606\VirtualAdmin\Helpers\ConstructorHelper;
+use kosuha606\VirtualModel\VirtualModel;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Design
  */
 class DesignService
 {
+    /** @var VirtualModel */
+    private $virtualModelEntity = DesignVm::class;
+
+    /**
+     * @param VirtualModel $virtualModelEntity
+     */
+    public function setVirtualModelEntity($virtualModelEntity)
+    {
+        $this->virtualModelEntity = $virtualModelEntity;
+    }
+
     /**
      * @param $content
      * @return string
@@ -16,7 +28,9 @@ class DesignService
      */
     public function renderDesignForRoute($route, $content)
     {
-        $designs = DesignVm::many(['where' => [['all']]]);
+        $virtualModelEntity = $this->virtualModelEntity;
+
+        $designs = $virtualModelEntity::many(['where' => [['all']]]);
 
         /** @var DesignVm $matchedDesign */
         $matchedDesign = null;
@@ -39,7 +53,11 @@ class DesignService
         /** @var DesignWidgetVm[] $widgets */
         $widgets = DesignWidgetVm::many(['where' => [['=', 'design_id', $matchedDesign->id]]]);
 
-        $template = $matchedDesign->template;
+        if (method_exists($matchedDesign, 'langAttribute')) {
+            $template = $matchedDesign->langAttribute('template');
+        } else {
+            $template = $matchedDesign->template;
+        }
         $positionTemplates = [];
 
         foreach ($widgets as $designWidget) {
