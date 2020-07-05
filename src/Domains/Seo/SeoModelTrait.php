@@ -2,6 +2,8 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
+use kosuha606\VirtualModel\VirtualModelManager;
+
 trait SeoModelTrait
 {
     /**
@@ -12,7 +14,7 @@ trait SeoModelTrait
     {
         $id = $this->id;
         $modelClass = get_class($this);
-        $models = SeoPageVm::many([
+        $models = VirtualModelManager::getEntity(SeoPageVm::class)::many([
             'where' => [
                 ['=', 'entity_id', $id],
                 ['=', 'entity_class', $modelClass],
@@ -30,13 +32,13 @@ trait SeoModelTrait
     {
         $id = $this->id;
         $modelClass = get_class($this);
-        $models = SeoUrlVm::many([
+        $models = VirtualModelManager::getEntity(SeoUrlVm::class)::many([
             'where' => [
                 ['=', 'entity_id', $id],
                 ['=', 'entity_class', $modelClass]
             ]
         ]);
-        $model = $models ? $models[0] : SeoUrlVm::create([]);
+        $model = $models ? $models[0] : VirtualModelManager::getEntity(SeoUrlVm::class)::create([]);
 
         return $model->url;
     }

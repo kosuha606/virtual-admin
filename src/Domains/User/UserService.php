@@ -16,7 +16,7 @@ class UserService
      */
     public function login($userId)
     {
-        $user = VirtualModelManager::getInstance()->getProvider()->one(UserVm::class, [
+        $user = VirtualModelManager::getEntity(UserVm::class)::one([
             'where' => [
                 ['=', 'id', $userId]
             ]

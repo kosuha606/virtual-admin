@@ -3,6 +3,7 @@
 namespace kosuha606\VirtualAdmin\Services;
 
 use kosuha606\VirtualAdmin\Model\Session;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Services
@@ -11,12 +12,12 @@ class SessionService
 {
     /**
      * @param $key
-     * @return Session
+     * @return Session|mixed
      * @throws \Exception
      */
-    public function get($key): Session
+    public function get($key)
     {
-        return Session::one(['where' => [['=', 'key', $key]]]);
+        return VirtualModelManager::getEntity(Session::class)::one(['where' => [['=', 'key', $key]]]);
     }
 
     /**
@@ -26,12 +27,12 @@ class SessionService
      */
     public function save($key, $value)
     {
-        $session = Session::one(['where' => [['=', 'key', $key]]]);
+        $session = VirtualModelManager::getEntity(Session::class)::one(['where' => [['=', 'key', $key]]]);
         if ($session->value) {
             $this->remove($key);
         }
 
-        Session::create([
+        VirtualModelManager::getEntity(Session::class)::create([
             'key' => $key,
             'value' => $value
         ])->save();
@@ -43,7 +44,7 @@ class SessionService
      */
     public function remove($key)
     {
-        $session = Session::one(['where' => [['=', 'key', $key]]]);
+        $session = VirtualModelManager::getEntity(Session::class)::one(['where' => [['=', 'key', $key]]]);
         if ($session->value) {
             $session->delete();
         }

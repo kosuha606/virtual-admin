@@ -2,6 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Multilang;
 
+use kosuha606\VirtualModel\VirtualModelManager;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
 /**
@@ -37,7 +38,7 @@ trait MultilangTrait
         }
 
         $modelClass = static::class;
-        $translation = TranslationVm::one([
+        $translation = VirtualModelManager::getEntity(TranslationVm::class)::one([
             'where' => [
                 ['=', 'entity_id', $this->id],
                 ['=', 'entity_class', $modelClass],

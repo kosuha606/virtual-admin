@@ -3,6 +3,7 @@
 namespace kosuha606\VirtualAdmin\Services;
 
 use kosuha606\VirtualAdmin\Model\Request;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Services
@@ -24,7 +25,7 @@ class RequestService
     public function request(): Request
     {
         if (!self::$request) {
-            self::$request = Request::one(['where' => [['all']]]);
+            self::$request = VirtualModelManager::getEntity(Request::class)::one(['where' => [['all']]]);
         }
 
         return self::$request;

@@ -3,6 +3,7 @@
 namespace kosuha606\VirtualAdmin\Domains\Version;
 
 use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Version
@@ -15,7 +16,7 @@ class VersionService
      */
     public function restoreById($versionId)
     {
-        $version = VersionVm::one(['where' => [
+        $version = VirtualModelManager::getEntity(VersionVm::class)::one(['where' => [
             ['=', 'id', $versionId]
         ]]);
 
@@ -26,7 +27,7 @@ class VersionService
         $entityClass = $version->entity_class;
         $entityId = $version->entity_id;
         /** @var VirtualModelEntity $entity */
-        $entity = $entityClass::one(['where' => [
+        $entity = VirtualModelManager::getEntity($entityClass)::one(['where' => [
             ['=', 'id', $entityId]
         ]]);
         $attributesData = $version->attributesData();

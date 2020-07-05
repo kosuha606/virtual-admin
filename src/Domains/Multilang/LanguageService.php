@@ -4,6 +4,7 @@ namespace kosuha606\VirtualAdmin\Domains\Multilang;
 
 use kosuha606\VirtualAdmin\Model\Session;
 use kosuha606\VirtualAdmin\Services\SessionService;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Multilang
@@ -28,7 +29,7 @@ class LanguageService
         SessionService $sessionService
     ) {
         $this->sessionService = $sessionService;
-        self::$langs = LangVm::many(['where' => [['all']]], 'code');
+        self::$langs = VirtualModelManager::getEntity(LangVm::class)::many(['where' => [['all']]], 'code');
     }
 
     /**

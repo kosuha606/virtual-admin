@@ -5,6 +5,7 @@ namespace kosuha606\VirtualAdmin\Services;
 use kosuha606\VirtualAdmin\Model\Permission;
 use kosuha606\VirtualAdmin\Domains\User\UserVm;
 use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Services
@@ -21,7 +22,7 @@ class PermissionService
     public function ensureActionAvailable($action, UserVm $user)
     {
         /** @var Permission $permission */
-        $permission = Permission::one(['where' => [
+        $permission = VirtualModelManager::getEntity(Permission::class)::one(['where' => [
             ['=', 'action', $action],
             ['=', 'user_id', $user->id]
         ]]);
@@ -41,7 +42,7 @@ class PermissionService
     public function ensureEntityTypeAvailable($entityType, UserVm $user)
     {
         /** @var Permission $permission */
-        $permission = Permission::one(['where' => [
+        $permission = VirtualModelManager::getEntity(Permission::class)::one(['where' => [
             ['=', 'entity', $entityType],
             ['=', 'user_id', $user->id]
         ]]);
@@ -61,7 +62,7 @@ class PermissionService
     public function ensureEntityAvailable(VirtualModelEntity $entity, UserVm $user)
     {
         /** @var Permission $permission */
-        $permission = Permission::one(['where' => [
+        $permission = VirtualModelManager::getEntity(Permission::class)::one(['where' => [
             ['=', 'entity', get_class($entity)],
             ['=', 'entity_id', $entity->id],
             ['=', 'user_id', $user->id]

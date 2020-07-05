@@ -2,6 +2,8 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Queue;
 
+use kosuha606\VirtualModel\VirtualModelManager;
+
 class QueueService
 {
     /**
@@ -55,7 +57,7 @@ class QueueService
     public function popAndRunAllJobs()
     {
         /** @var QueueVm[] $queues */
-        $queues = QueueVm::many([
+        $queues = VirtualModelManager::getEntity(QueueVm::class)::many([
             'where' => [['all']],
             'orderBy' => ['created_at' => SORT_ASC],
         ]);

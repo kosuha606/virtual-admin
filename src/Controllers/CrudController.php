@@ -5,6 +5,7 @@ namespace kosuha606\VirtualAdmin\Controllers;
 use kosuha606\VirtualAdmin\Domains\Transaction\TransactionVm;
 use kosuha606\VirtualAdmin\Classes\Pagination;
 use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 class CrudController
 {
@@ -18,7 +19,7 @@ class CrudController
     public function actionList($modelClass, Pagination $pagination, $filter = [], $orderBy = [])
     {
         try {
-            $total = $modelClass::count([
+            $total = VirtualModelManager::getEntity($modelClass)::count([
                 'where' => $filter
             ]);
             $pagination->totals = $total;
@@ -27,7 +28,7 @@ class CrudController
         }
 
         /** @var VirtualModelEntity $modelClass */
-        $models = $modelClass::many([
+        $models = VirtualModelManager::getEntity($modelClass)::many([
             'where' => $filter,
             'orderBy' => $orderBy,
             'limit' => $pagination->getLimit(),
@@ -46,7 +47,7 @@ class CrudController
     public function actionView($modelClass, $id, $data = [])
     {
         /** @var VirtualModelEntity $modelClass */
-        $model = $modelClass::one([
+        $model = VirtualModelManager::getEntity($modelClass)::one([
             'where' => [
                 ['=', 'id', $id]
             ]
@@ -75,7 +76,7 @@ class CrudController
 
             /** @var VirtualModelEntity $modelClass */
             if ($id) {
-                $model = $modelClass::one([
+                $model = VirtualModelManager::getEntity($modelClass)::one([
                     'where' => [
                         ['=', 'id', $id]
                     ]
@@ -87,7 +88,7 @@ class CrudController
                     $model->setAttribute($field, $value);
                 }
             } else {
-                $model = $modelClass::create($data);
+                $model = VirtualModelManager::getEntity($modelClass)::create($data);
             }
             $model->save();
 
@@ -98,6 +99,5 @@ class CrudController
         }
 
         return $model;
-
     }
 }

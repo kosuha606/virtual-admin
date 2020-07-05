@@ -30,14 +30,14 @@ class TranslationService
     public function translate($value)
     {
         try {
-            $staticTranslation = StaticTranslationVm::one([
+            $staticTranslation = VirtualModelManager::getEntity(StaticTranslationVm::class)::one([
                 'where' => [
                     ['=', 'value', $value]
                 ]
             ]);
 
             if (!$staticTranslation->id) {
-                $staticTranslation = StaticTranslationVm::create([
+                $staticTranslation = VirtualModelManager::getEntity(StaticTranslationVm::class)::create([
                     'value' => $value
                 ]);
                 $ids = $staticTranslation->save();
@@ -53,14 +53,14 @@ class TranslationService
     }
 
     /**
-     * @param VirtualModel $model
+     * @param VirtualModelEntity $model
      * @param $field
      * @param LangVm $langVm
      * @return string|null
      * @throws \ErrorException
      * @throws \Exception
      */
-    public function autoTranslate(VirtualModel $model, $field, LangVm $langVm)
+    public function autoTranslate(VirtualModelEntity $model, $field, LangVm $langVm)
     {
         if ($this->autoTranslateRequestsCount >= $this->autoTranslateLimit) {
             return '';
@@ -76,7 +76,7 @@ class TranslationService
             $translated = $this->autoTranslateProvider->autoTranslate($this->sourceLang, $langVm->code, $model->$field);
             $this->autoTranslateRequestsCount++;
 
-            $newTranslation = TranslationVm::create([
+            $newTranslation = VirtualModelManager::getEntity(TranslationVm::class)::create([
                 'entity_id' => $model->id,
                 'entity_class' => get_class($model),
                 'lang_id' => $langVm->id,

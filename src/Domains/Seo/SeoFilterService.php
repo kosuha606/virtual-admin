@@ -2,6 +2,8 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
+use kosuha606\VirtualModel\VirtualModelManager;
+
 /**
  * @package kosuha606\VirtualAdmin\Domains\Seo
  */
@@ -20,7 +22,7 @@ class SeoFilterService
 
         foreach ($data as $index => $item) {
             $itemParts = explode('_', $item);
-            $filter = SeoFilterVm::one(['where' => [
+            $filter = VirtualModelManager::getEntity(SeoFilterVm::class)::one(['where' => [
                 ['=', 'value', $itemParts[0]],
                 ['=', 'type', $itemParts[1]],
             ]]);
@@ -57,7 +59,7 @@ class SeoFilterService
     {
         $slugs = explode('_', $url);
         $filter = [];
-        $seoFilters = SeoFilterVm::many(['where' => [
+        $seoFilters = VirtualModelManager::getEntity(SeoFilterVm::class)::many(['where' => [
             ['in', 'slug', $slugs],
         ]]);
 
@@ -84,7 +86,7 @@ class SeoFilterService
      */
     public function saveFilterValueIfNotExists($value, $type)
     {
-        $existed = SeoFilterVm::many(['where' => [
+        $existed = VirtualModelManager::getEntity(SeoFilterVm::class)::many(['where' => [
             ['=', 'value', $value],
             ['=', 'type', $type],
         ]]);

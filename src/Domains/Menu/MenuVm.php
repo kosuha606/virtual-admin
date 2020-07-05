@@ -4,6 +4,7 @@ namespace kosuha606\VirtualAdmin\Domains\Menu;
 
 use kosuha606\VirtualAdmin\Domains\Multilang\MultilangTrait;
 use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 class MenuVm extends VirtualModelEntity
 {
@@ -22,7 +23,7 @@ class MenuVm extends VirtualModelEntity
      */
     public function getItems()
     {
-        $items = MenuItemVm::many([
+        $items = VirtualModelManager::getEntity(MenuItemVm::class)::many([
             'where' => [['=', 'menu_id', $this->id]],
             'orderBy' => ['order' => SORT_ASC]
         ]);

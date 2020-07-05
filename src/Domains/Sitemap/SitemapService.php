@@ -25,7 +25,7 @@ class SitemapService
     public function __construct()
     {
         $this->provider = VirtualModelManager::getInstance()->getProvider(SitemapProviderInterface::class);
-        $this->sitemap = SitemapVm::create([]);
+        $this->sitemap = VirtualModelManager::getEntity(SitemapVm::class)::create([]);
     }
 
     /**
@@ -38,7 +38,7 @@ class SitemapService
         $storageClasses = $storageProvider->getAvailableModelClasses();
         $baseUrl = $this->provider->getBaseUrl();
 
-        $seoPages = SeoPageVm::many(['where' => [
+        $seoPages = VirtualModelManager::getEntity(SeoPageVm::class)::many(['where' => [
             ['=', 'entity_id', null]
         ]]);
         /** @var SeoPageVm $page */

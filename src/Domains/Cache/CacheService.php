@@ -2,6 +2,8 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Cache;
 
+use kosuha606\VirtualModel\VirtualModelManager;
+
 class CacheService
 {
     /**
@@ -12,14 +14,14 @@ class CacheService
      */
     public function one($entityClass, $whereConfig = [])
     {
-        $tableName = CacheVm::normalizeTableName($entityClass);
-        $data = CacheVm::getData($tableName, $whereConfig);
+        $tableName = VirtualModelManager::getEntity(CacheVm::class)::normalizeTableName($entityClass);
+        $data = VirtualModelManager::getEntity(CacheVm::class)::getData($tableName, $whereConfig);
 
         if (!isset($data[0])) {
             return null;
         }
 
-        return CacheVm::create($data[0]);
+        return VirtualModelManager::getEntity(CacheVm::class)::create($data[0]);
     }
 
     /**
@@ -29,12 +31,12 @@ class CacheService
      */
     public function many($entityClass, $whereConfig = [])
     {
-        $tableName = CacheVm::normalizeTableName($entityClass);
-        $data = CacheVm::getData($tableName, $whereConfig);
+        $tableName = VirtualModelManager::getEntity(CacheVm::class)::normalizeTableName($entityClass);
+        $data = VirtualModelManager::getEntity(CacheVm::class)::getData($tableName, $whereConfig);
 
         $result = [];
         foreach ($data as $datum) {
-            $result[] = CacheVm::create($datum);
+            $result[] = VirtualModelManager::getEntity(CacheVm::class)::create($datum);
         }
 
         return $result;

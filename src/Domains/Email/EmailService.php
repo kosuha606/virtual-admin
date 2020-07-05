@@ -2,6 +2,8 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Email;
 
+use kosuha606\VirtualModel\VirtualModelManager;
+
 /**
  * @package kosuha606\VirtualAdmin\Domains\Email
  */
@@ -13,7 +15,7 @@ class EmailService
      */
     public function send(EmailDTO $emailDTO)
     {
-        $mail = Email::create([
+        $mail = VirtualModelManager::getEntity(Email::class)::create([
             'to_email' => $emailDTO->getToEmail(),
             'from_email' => $emailDTO->getFromEmail(),
             'bcc' => $emailDTO->getBcc(),

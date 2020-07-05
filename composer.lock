@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "835eddd0cc23467a4ac16da055c9f253",
+    "content-hash": "476594e07e9575a71c119648a1bd7cfe",
     "packages": [
         {
             "name": "kosuha606/virtual-model",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kosuha606/virtual-model.git",
-                "reference": "12607fc47002a13a979008bf23966f1cc6abf7fa"
+                "reference": "43177c0d63825c4336dd040b78d8e9d3d6727b0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/12607fc47002a13a979008bf23966f1cc6abf7fa",
-                "reference": "12607fc47002a13a979008bf23966f1cc6abf7fa",
+                "url": "https://api.github.com/repos/kosuha606/virtual-model/zipball/43177c0d63825c4336dd040b78d8e9d3d6727b0d",
+                "reference": "43177c0d63825c4336dd040b78d8e9d3d6727b0d",
                 "shasum": ""
             },
             "require": {
@@ -40,7 +40,7 @@
                 }
             ],
             "description": "VirtualModel",
-            "time": "2020-06-27T16:30:34+00:00"
+            "time": "2020-07-05T14:31:24+00:00"
         },
         {
             "name": "kosuha606/virtual-model-helppack",

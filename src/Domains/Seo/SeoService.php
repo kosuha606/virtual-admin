@@ -3,6 +3,7 @@
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
 use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Seo
@@ -31,7 +32,7 @@ class SeoService
         }, $languages);
         $url = str_replace($languages, '/', $url);
 
-        $seoPage = SeoPageVm::one(['where' => [
+        $seoPage = VirtualModelManager::getEntity(SeoPageVm::class)::one(['where' => [
             ['=', 'url', $url]
         ]]);
 
@@ -39,13 +40,13 @@ class SeoService
             return $seoPage;
         }
 
-        $seoUrl = SeoUrlVm::one([
+        $seoUrl = VirtualModelManager::getEntity(SeoUrlVm::class)::one([
             'where' => [
                 ['=', 'url', $url]
             ]
         ]);
 
-        $seoPage = SeoPageVm::one([
+        $seoPage = VirtualModelManager::getEntity(SeoPageVm::class)::one([
             'where' => [
                 ['=', 'entity_id', $seoUrl->entity_id],
                 ['=', 'entity_class', $seoUrl->entity_class],
@@ -68,7 +69,7 @@ class SeoService
      */
     public function findModelByUrl($url)
     {
-        $seoUrl = SeoUrlVm::one([
+        $seoUrl = VirtualModelManager::getEntity(SeoUrlVm::class)::one([
            'where' => [
                ['=', 'url', $url]
            ]
@@ -84,7 +85,7 @@ class SeoService
             return false;
         }
 
-        $model = $modelClass::one([
+        $model = VirtualModelManager::getEntity($modelClass)::one([
             'where' => [
                 ['=', 'id', $seoUrl->entity_id]
             ]
@@ -106,7 +107,7 @@ class SeoService
         $modelClass = get_class($model);
         $this->removeUrlByModel($model);
 
-        SeoUrlVm::create([
+        VirtualModelManager::getEntity(SeoUrlVm::class)::create([
             'entity_id' => $id,
             'entity_class' => $modelClass,
             'url' => $url,
@@ -125,7 +126,7 @@ class SeoService
         $modelClass = get_class($model);
 
         /** @var SeoUrlVm[] $oldModels */
-        $oldModels = SeoUrlVm::many([
+        $oldModels = VirtualModelManager::getEntity(SeoUrlVm::class)::many([
             'where' => [
                 ['=', 'entity_id', $id],
                 ['=', 'entity_class', $modelClass],

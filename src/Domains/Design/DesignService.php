@@ -3,18 +3,19 @@
 namespace kosuha606\VirtualAdmin\Domains\Design;
 
 use kosuha606\VirtualAdmin\Helpers\ConstructorHelper;
-use kosuha606\VirtualModel\VirtualModel;
+use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * @package kosuha606\VirtualAdmin\Domains\Design
  */
 class DesignService
 {
-    /** @var VirtualModel */
+    /** @var VirtualModelEntity */
     private $virtualModelEntity = DesignVm::class;
 
     /**
-     * @param VirtualModel $virtualModelEntity
+     * @param VirtualModelEntity $virtualModelEntity
      */
     public function setVirtualModelEntity($virtualModelEntity)
     {
@@ -28,7 +29,7 @@ class DesignService
      */
     public function renderDesignForRoute($route, $content)
     {
-        $virtualModelEntity = $this->virtualModelEntity;
+        $virtualModelEntity = VirtualModelManager::getEntity($this->virtualModelEntity);
 
         $designs = $virtualModelEntity::many(['where' => [['all']]]);
 
@@ -51,7 +52,7 @@ class DesignService
         }
 
         /** @var DesignWidgetVm[] $widgets */
-        $widgets = DesignWidgetVm::many(['where' => [['=', 'design_id', $matchedDesign->id]]]);
+        $widgets = VirtualModelManager::getEntity(DesignWidgetVm::class)::many(['where' => [['=', 'design_id', $matchedDesign->id]]]);
 
         if (method_exists($matchedDesign, 'langAttribute')) {
             $template = $matchedDesign->langAttribute('template');
@@ -65,7 +66,7 @@ class DesignService
                 $positionTemplates[$designWidget->position] = [];
             }
 
-            $widget = WidgetVm::one(['where' => [['=', 'id', $designWidget->widget_id]]]);
+            $widget = VirtualModelManager::getEntity(WidgetVm::class)::one(['where' => [['=', 'id', $designWidget->widget_id]]]);
             $widgetClass = $widget->widget_class;
             $widgetConfig = json_decode($designWidget->config, true);
             $widgetConfig = $this->normalizeWidgetConfig($widgetConfig);

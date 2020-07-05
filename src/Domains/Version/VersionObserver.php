@@ -3,6 +3,7 @@
 namespace kosuha606\VirtualAdmin\Domains\Version;
 
 use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
  * Наблюдатель для сущностей VM для которых нужно следить за версиями данных
@@ -20,7 +21,7 @@ class VersionObserver
         $entityClass = get_class($model);
 
         /** @var VersionVm[] $versions */
-        $versions = VersionVm::many([
+        $versions = VirtualModelManager::getEntity(VersionVm::class)::many([
             'where' => [
                 ['=', 'entity_id', $entityId],
                 ['=', 'entity_class', $entityClass]
@@ -51,7 +52,7 @@ class VersionObserver
 
         $entityId = $model->id;
         $entityClass = get_class($model);
-        VersionVm::create([
+        VirtualModelManager::getEntity(VersionVm::class)::create([
             'entity_id' => $entityId,
             'entity_class' => $entityClass,
             'attributes' => json_encode($model->getAttributes(), JSON_UNESCAPED_UNICODE),
