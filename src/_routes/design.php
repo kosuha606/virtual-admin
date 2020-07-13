@@ -109,7 +109,7 @@ return [
                                         'component' => DetailComponents::SELECT_FIELD,
                                         'value' => $inModel->widget_id,
                                         'props' => [
-                                            'items' => $stringService->map(VirtualModel::allToArray(WidgetVm::many(['where' => [['all']]])), 'id', 'name')
+                                            'items' => $stringService->map(VirtualModelEntity::allToArray(WidgetVm::many(['where' => [['all']]])), 'id', 'name')
                                         ]
                                     ],
                                     [
