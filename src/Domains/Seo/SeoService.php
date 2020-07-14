@@ -104,6 +104,11 @@ class SeoService
     {
         $url = $model->buildUrl();
         $id = $model->id;
+
+        if (!$id) {
+            return;
+        }
+
         $modelClass = get_class($model);
         $this->removeUrlByModel($model);
 

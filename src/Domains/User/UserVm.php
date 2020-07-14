@@ -76,6 +76,11 @@ class UserVm extends VirtualModelEntity
         return $this->role === 'b2b';
     }
 
+    public function isGuest()
+    {
+        return empty($this->attributes['id']);
+    }
+
     /**
      * Уникальный cookie ключ пользователя
      */
