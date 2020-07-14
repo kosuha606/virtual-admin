@@ -22,7 +22,7 @@ class TestSearchProvider extends MemoryModelProvider implements SearchProviderIn
 
     public function indexInfo($caller): SearchIndexInfoDTO
     {
-        // TODO: Implement indexInfo() method.
+        return new SearchIndexInfoDTO(0);
     }
 
     public function index($caller, SearchableInterface $model)
