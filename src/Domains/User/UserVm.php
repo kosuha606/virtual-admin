@@ -2,6 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\User;
 
+use kosuha606\VirtualAdmin\Domains\Cookie\CookieVm;
 use kosuha606\VirtualAdmin\Services\PermissionService;
 use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ServiceManager;
@@ -13,6 +14,10 @@ use kosuha606\VirtualModelHelppack\ServiceManager;
  */
 class UserVm extends VirtualModelEntity
 {
+    const UNIQ_COOKIE_KEY = 'user_token';
+
+    private static $cookieWasSet = false;
+
     public function attributes(): array
     {
         return [
@@ -23,6 +28,16 @@ class UserVm extends VirtualModelEntity
             'personalDiscount',
             'password',
         ];
+    }
+
+    public function __construct($environment = 'db')
+    {
+        if (!$this->getCookieKey() && !static::$cookieWasSet) {
+            CookieVm::set(self::UNIQ_COOKIE_KEY, md5(time()), time()+3600*24*30);
+            static::$cookieWasSet = true;
+        }
+
+        parent::__construct($environment);
     }
 
     /**
@@ -59,5 +74,13 @@ class UserVm extends VirtualModelEntity
     public function isB2B()
     {
         return $this->role === 'b2b';
+    }
+
+    /**
+     * Уникальный cookie ключ пользователя
+     */
+    public function getCookieKey()
+    {
+        return CookieVm::get(self::UNIQ_COOKIE_KEY);
     }
 }
