@@ -336,7 +336,7 @@ class AdminRequestProcessor
     /**
      * @param $dir
      */
-    public function loadConfig($dir = null)
+    public function loadConfig($dir = null, $afterMerge = null)
     {
         if ($dir) {
             $this->setConfig($this->adminConfigService->loadConfigs($dir));
@@ -350,6 +350,11 @@ class AdminRequestProcessor
                 $config = AdminConfigService::merge($config, $routeLoader->routesData());
             }
 
+            $this->setConfig($config);
+        }
+
+        if ($afterMerge && is_callable($afterMerge)) {
+            $config = call_user_func($afterMerge, $config);
             $this->setConfig($config);
         }
 
