@@ -26,6 +26,8 @@ Vue.use(selectPicker);
 Vue.use(VueCookie);
 Vue.use(VueTopprogress);
 
+window.Vue = Vue;
+
 Vue.mixin({
     methods: {
         $pluralize(number, no, one, two, five) {
