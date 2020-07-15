@@ -72,6 +72,14 @@ class SettingsService
     }
 
     /**
+     * @return array
+     */
+    public function getSettingsHash(): array
+    {
+        return $this->settingsHash;
+    }
+
+    /**
      * Сохранить настройки
      */
     public function saveSettings($settings)
