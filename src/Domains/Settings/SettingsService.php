@@ -37,6 +37,10 @@ class SettingsService
         if ($this->settings) {
             foreach ($this->settings as $tab => $setList) {
                 foreach ($setList as $setItem) {
+                    if (!isset($resultSettings[$tab])) {
+                        continue;
+                    }
+
                     foreach ($resultSettings[$tab] as &$resultSettingItem) {
                         if ($resultSettingItem['field'] === $setItem['field']) {
                             $resultSettingItem['value'] = $setItem['value'];
