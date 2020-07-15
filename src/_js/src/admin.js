@@ -36,7 +36,7 @@ Vue.mixin({
     }
 });
 
-$.ready(() => {
+$(document).ready(() => {
     const app = new Vue({
         el: '#vue-app',
         created() {
