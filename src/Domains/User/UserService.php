@@ -26,6 +26,7 @@ class UserService
 
     public function current()
     {
+        $this->user->getCookieKey();
         return $this->user;
     }
 

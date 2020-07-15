@@ -32,11 +32,6 @@ class UserVm extends VirtualModelEntity
 
     public function __construct($environment = 'db')
     {
-        if (!$this->getCookieKey() && !static::$cookieWasSet) {
-            CookieVm::set(self::UNIQ_COOKIE_KEY, md5(time()), time()+3600*24*30);
-            static::$cookieWasSet = true;
-        }
-
         parent::__construct($environment);
     }
 
@@ -86,6 +81,11 @@ class UserVm extends VirtualModelEntity
      */
     public function getCookieKey()
     {
+        if (!CookieVm::get(self::UNIQ_COOKIE_KEY) && !static::$cookieWasSet) {
+            CookieVm::set(self::UNIQ_COOKIE_KEY, md5(time()), time()+3600*24*30);
+            static::$cookieWasSet = true;
+        }
+
         return CookieVm::get(self::UNIQ_COOKIE_KEY);
     }
 }
