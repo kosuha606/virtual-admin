@@ -36,30 +36,32 @@ Vue.mixin({
     }
 });
 
-const app = new Vue({
-    el: '#vue-app',
-    created() {
-        Request.app = this;
-    },
-    mounted() {
-        this.handleAlerts();
-    },
-    methods: {
-        startProgress() {
-            this.$refs.topProgress.start();
+$.ready(() => {
+    const app = new Vue({
+        el: '#vue-app',
+        created() {
+            Request.app = this;
         },
-        stopProgress() {
-            this.$refs.topProgress.done();
+        mounted() {
+            this.handleAlerts();
         },
-        handleAlerts() {
-            each(_alerts, (items, key) => {
-                each (items, (item) => {
-                    this.toast(key, item);
+        methods: {
+            startProgress() {
+                this.$refs.topProgress.start();
+            },
+            stopProgress() {
+                this.$refs.topProgress.done();
+            },
+            handleAlerts() {
+                each(_alerts, (items, key) => {
+                    each (items, (item) => {
+                        this.toast(key, item);
+                    });
                 });
-            });
-        },
-        toast(type, message) {
-            toastr[type](message);
+            },
+            toast(type, message) {
+                toastr[type](message);
+            }
         }
-    }
+    });
 });
