@@ -59,6 +59,9 @@ $(document).ready(() => {
                     });
                 });
             },
+            alert(message) {
+                this.toast('error', message);
+            },
             toast(type, message) {
                 toastr[type](message);
             }
