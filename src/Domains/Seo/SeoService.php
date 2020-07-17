@@ -3,6 +3,7 @@
 namespace kosuha606\VirtualAdmin\Domains\Seo;
 
 use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
+use kosuha606\VirtualContent\Domains\Page\Models\PageVm;
 use kosuha606\VirtualModel\VirtualModelManager;
 
 /**
@@ -32,9 +33,15 @@ class SeoService
         }, $languages);
         $url = str_replace($languages, '/', $url);
 
-        $seoPage = VirtualModelManager::getEntity(SeoPageVm::class)::one(['where' => [
-            ['=', 'url', $url]
-        ]]);
+        if ($url === '/') {
+            // Для главной страницы обработка отдельная
+            $homePage = PageVm::one(['where' => [['=', 'is_home', 1]]]);
+            $seoPage = $homePage->getSeo();
+        } else {
+            $seoPage = VirtualModelManager::getEntity(SeoPageVm::class)::one(['where' => [
+                ['=', 'url', $url]
+            ]]);
+        }
 
         if ($seoPage && $seoPage->id) {
             return $seoPage;
