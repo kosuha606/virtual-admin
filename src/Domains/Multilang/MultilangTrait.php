@@ -21,7 +21,7 @@ trait MultilangTrait
      * @return mixed
      * @throws \Exception
      */
-    public function langAttribute($name)
+    public function langAttribute($name, LangVm $fromLang = null)
     {
         if (!self::$langService) {
             self::$langService = ServiceManager::getInstance()->get(LanguageService::class);
@@ -31,7 +31,11 @@ trait MultilangTrait
             self::$tralnslationService = ServiceManager::getInstance()->get(TranslationService::class);
         }
 
-        $lang = self::$langService->getLang();
+        if (!$fromLang) {
+            $lang = self::$langService->getLang();
+        } else {
+            $lang = $fromLang;
+        }
 
         if ($lang->is_default) {
             return $this->$name;

@@ -2,7 +2,10 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Cache;
 
+use kosuha606\VirtualAdmin\Domains\Multilang\LanguageService;
+use kosuha606\VirtualAdmin\Domains\Multilang\LangVm;
 use kosuha606\VirtualModel\VirtualModelEntity;
+use kosuha606\VirtualModelHelppack\ServiceManager;
 
 /**
  *
@@ -23,6 +26,21 @@ use kosuha606\VirtualModel\VirtualModelEntity;
 class CacheVm extends VirtualModelEntity
 {
     const KEY = 'cache';
+
+    /** @var LanguageService */
+    private static $langService;
+
+    public function langAttribute($name)
+    {
+        if (!self::$langService) {
+            self::$langService = ServiceManager::getInstance()->get(LanguageService::class);
+        }
+
+        $lang = self::$langService->getLang();
+        $attrName  = $name.'_'.$lang->code;
+
+        return $this->attributes[$attrName] ?? null;
+    }
 
     public static function providerType()
     {

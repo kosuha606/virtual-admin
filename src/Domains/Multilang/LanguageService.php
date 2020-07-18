@@ -20,6 +20,8 @@ class LanguageService
 
     private static $langs;
 
+    private static $currentLang;
+
     /**
      * LanguageService constructor.
      * @param SessionService $sessionService
@@ -49,11 +51,13 @@ class LanguageService
             $lang = 'ru';
         }
 
-        $langInst = LangVm::one(['where' => [
-            ['=', 'code', $lang]
-        ]]);
+        if (!self::$currentLang) {
+            self::$currentLang = LangVm::one(['where' => [
+                ['=', 'code', $lang]
+            ]]);
+        }
 
-        return $langInst;
+        return self::$currentLang;
     }
 
     /**

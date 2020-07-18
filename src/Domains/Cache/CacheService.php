@@ -2,6 +2,7 @@
 
 namespace kosuha606\VirtualAdmin\Domains\Cache;
 
+use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModel\VirtualModelManager;
 
 class CacheService
@@ -40,5 +41,35 @@ class CacheService
         }
 
         return $result;
+    }
+
+    /**
+     * Пересохраняет все модели, которые генерируют кэш
+     * @throws \Exception
+     */
+    public function rebuildCache()
+    {
+        $storageProvider = VirtualModelManager::getInstance()->getProvider('storage');
+        $storageClasses = $storageProvider->getAvailableModelClasses();
+
+        $errors = [];
+
+        foreach ($storageClasses as $storageClass) {
+            if (class_implements($storageClass, CacheAimInterface::class)) {
+                $models = $storageClass::many(['where' => [['all']]]);
+
+                /** @var VirtualModelEntity $model */
+                foreach ($models as $model) {
+                    try {
+                        $model->save();
+                    } catch (\Exception $exception) {
+                        $modelClass = get_class($model);
+                        $errors[] = "{$modelClass} #{$model->id} {$exception->getMessage()}";
+                    }
+                }
+            }
+        }
+
+        return $errors;
     }
 }
