@@ -43,6 +43,13 @@ class CacheService
         return $result;
     }
 
+    public function count($entityClass, $whereConfig = [])
+    {
+        $tableName = VirtualModelManager::getEntity(CacheVm::class)::normalizeTableName($entityClass);
+
+        return VirtualModelManager::getEntity(CacheVm::class)::count($tableName, $whereConfig);
+    }
+
     /**
      * Пересохраняет все модели, которые генерируют кэш
      * @throws \Exception
