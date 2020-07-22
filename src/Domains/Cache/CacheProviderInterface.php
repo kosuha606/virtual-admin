@@ -18,5 +18,7 @@ interface CacheProviderInterface
 
     public function insertData($caller, $tableName, $whereConfig);
 
+    public function updateData($caller, $tableName, $whereConfig);
+
     public function deleteData($caller, $tableName, $whereConfig);
 }

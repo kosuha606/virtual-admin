@@ -20,6 +20,7 @@ use kosuha606\VirtualModelHelppack\ServiceManager;
  * @method static isTableExists($tableName)
  * @method static getData($tableName, $whereConfig)
  * @method static insertData($tableName, $whereConfig)
+ * @method static updateData($tableName, $whereConfig)
  * @method static deleteData($tableName, $whereConfig)
  *
  */

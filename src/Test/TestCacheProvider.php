@@ -63,6 +63,11 @@ class TestCacheProvider extends VirtualModelProvider implements CacheProviderInt
         // TODO: Implement insertData() method.
     }
 
+    public function updateData($caller, $tableName, $whereConfig)
+    {
+
+    }
+
     public function deleteData($caller, $tableName, $whereConfig)
     {
         // TODO: Implement deleteData() method.

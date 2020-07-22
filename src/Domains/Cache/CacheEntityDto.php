@@ -12,16 +12,20 @@ class CacheEntityDto
 
     private $cacheIdField;
 
+    private $cacheAction;
+
     public function __construct(
         $cacheId,
         $cacheIdField,
         $cacheClass,
-        $cacheData
+        $cacheData,
+        $cacheAction = 'insert'
     ) {
         $this->cacheId = $cacheId;
         $this->cacheClass = $cacheClass;
         $this->cacheData = $cacheData;
         $this->cacheIdField = $cacheIdField;
+        $this->cacheAction = $cacheAction;
     }
 
     /**
@@ -86,5 +90,21 @@ class CacheEntityDto
     public function setCacheIdField($cacheIdField)
     {
         $this->cacheIdField = $cacheIdField;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCacheAction()
+    {
+        return $this->cacheAction;
+    }
+
+    /**
+     * @param mixed $cacheIdField
+     */
+    public function setCacheAction($cacheIdField)
+    {
+        $this->cacheAction = $cacheIdField;
     }
 }

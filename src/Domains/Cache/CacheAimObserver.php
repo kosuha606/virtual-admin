@@ -49,12 +49,20 @@ class CacheAimObserver
      */
     private function saveOneEntity($tableName, CacheEntityDto $cacheEntityDto)
     {
-        // Очищаем стырй кэш
-        CacheVm::deleteData($tableName, ['=', $cacheEntityDto->getCacheIdField(), $cacheEntityDto->getCacheId()]);
+        if ($cacheEntityDto->getCacheAction() === 'insert') {
+            // Очищаем стырй кэш
+            CacheVm::deleteData($tableName, ['=', $cacheEntityDto->getCacheIdField(), $cacheEntityDto->getCacheId()]);
 
-        // Создаем новый кэш
-        $normalizedCacheData = $this->normalizeEntityData($cacheEntityDto->getCacheData());
-        $normalizedCacheData[static::CACHE_BUILD_DATE] = date('Y-m-d H:i:s');
-        CacheVm::insertData($tableName, $normalizedCacheData);
+            // Создаем новый кэш
+            $normalizedCacheData = $this->normalizeEntityData($cacheEntityDto->getCacheData());
+            $normalizedCacheData[static::CACHE_BUILD_DATE] = date('Y-m-d H:i:s');
+            CacheVm::insertData($tableName, $normalizedCacheData);
+        }
+
+        if ($cacheEntityDto->getCacheAction() === 'update') {
+            $normalizedCacheData = $this->normalizeEntityData($cacheEntityDto->getCacheData());
+            $normalizedCacheData[static::CACHE_BUILD_DATE] = date('Y-m-d H:i:s');
+            CacheVm::updateData($tableName, $normalizedCacheData);
+        }
     }
 }
