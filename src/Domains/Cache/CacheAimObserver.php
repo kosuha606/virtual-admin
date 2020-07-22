@@ -16,7 +16,10 @@ class CacheAimObserver
         foreach ($aim->cacheItems() as $cacheEntityDto) {
             $tableName = CacheVm::normalizeTableName($cacheEntityDto->getCacheClass());
 
-            if (!CacheVm::isTableExists($tableName)) {
+            if (
+                !CacheVm::isTableExists($tableName)
+                && $cacheEntityDto->getCacheAction() === 'insert'
+            ) {
                 $this->createCacheTable($tableName, $cacheEntityDto->getCacheData());
             }
 
@@ -62,7 +65,10 @@ class CacheAimObserver
         if ($cacheEntityDto->getCacheAction() === 'update') {
             $normalizedCacheData = $this->normalizeEntityData($cacheEntityDto->getCacheData());
             $normalizedCacheData[static::CACHE_BUILD_DATE] = date('Y-m-d H:i:s');
-            CacheVm::updateData($tableName, $normalizedCacheData);
+            CacheVm::updateData($tableName, [
+                'data' => $normalizedCacheData,
+                'where' => ['=', $cacheEntityDto->getCacheIdField(), $cacheEntityDto->getCacheId()]
+            ]);
         }
     }
 }
