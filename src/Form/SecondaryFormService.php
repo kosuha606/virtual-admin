@@ -122,6 +122,13 @@ class SecondaryFormService
         foreach ($postData[self::SESSION_KEY] as $modelClass => $data) {
             $sessionModelData = $sessionConfig->value[$modelClass];
 
+            if (
+                empty($sessionModelData['masterModelId'])
+                || empty($sessionModelData['masterModelField'])
+            ) {
+                continue;
+            }
+
             $values = explode(',', $sessionModelData['masterModelId']);
             $fields = explode(',', $sessionModelData['masterModelField']);
             $where = [];
