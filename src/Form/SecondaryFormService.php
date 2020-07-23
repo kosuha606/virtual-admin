@@ -65,10 +65,14 @@ class SecondaryFormService
             $value = $formSession->value;
         }
 
+        $modelClass = get_class($builder->getMasterModel());
+        $value['baseModelId'] = $builder->getMasterModel()->id;
+        $value['baseModelClass'] = $modelClass;
+
         $value[$builder->getRelationClass()] = [
             'masterModelId' => $builder->getMasterModelId() ?: $builder->getMasterModel()->id,
             'masterModelField' => $builder->getMasterModelField(),
-            'masterModelClass' => get_class($builder->getMasterModel()),
+            'masterModelClass' => $modelClass,
             'relationType' => $builder->getRelationType(),
         ];
 
@@ -89,6 +93,12 @@ class SecondaryFormService
         $postData = $this->requestService->request()->post;
         $sessionConfig = $this->sessionService->get(self::SESSION_KEY);
 
+        if (isset($postData['id']) && isset($sessionConfig->value['baseModelId'])) {
+            if ($postData['id'] !== $sessionConfig->value['baseModelId']) {
+                throw new \LogicException('Была открыта другая модель для редактирования, перезагрузите страницу');
+            }
+        }
+
         if (!isset($postData[self::SESSION_KEY])) {
             // Если нет данных пищем пустой массив
             $postData[self::SESSION_KEY] = [];
@@ -101,6 +111,8 @@ class SecondaryFormService
                 $postData[self::SESSION_KEY][$sessClass] = [];
             }
         }
+
+
 
         /**
          * Создаем новые связанные модели
