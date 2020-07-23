@@ -29,7 +29,6 @@ return [
                     'h1' => $listTitle,
                     'entity' => $baseEntity,
                     'component' => 'list',
-                    'ad_url' => '/admin/'.$baseEntity.'/detail',
                     'crud' => [
                         'model' => $entityClass,
                         'action' => 'actionList',
