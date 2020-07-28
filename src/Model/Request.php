@@ -9,6 +9,7 @@ use kosuha606\VirtualModel\VirtualModelEntity;
  * @property $post
  * @property $isAjax
  * @property $isPost
+ * @property $pathInfo
  */
 class Request extends VirtualModelEntity
 {
@@ -22,6 +23,7 @@ class Request extends VirtualModelEntity
     public function attributes(): array
     {
         return [
+            'pathInfo',
             'get',
             'post',
             'isAjax',
