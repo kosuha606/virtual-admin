@@ -16,7 +16,7 @@ class UserVm extends VirtualModelEntity
 {
     const UNIQ_COOKIE_KEY = 'user_token';
 
-    private static $cookieWasSet = false;
+    protected static $cookieWasSet = false;
 
     public function attributes(): array
     {
