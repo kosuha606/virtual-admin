@@ -49,7 +49,7 @@ class SitemapService
         // Записываем в карту сайта все сущности
         /** @var VirtualModelEntity $storageClass */
         foreach ($storageClasses as $storageClass) {
-            if (class_implements($storageClass, SeoModelInterface::class)) {
+            if (in_array(SeoModelInterface::class, class_implements($storageClass, true))) {
                 $models = $storageClass::many(['where' => [['all']]]);
 
                 /** @var SeoModelInterface $model */
