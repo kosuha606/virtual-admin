@@ -64,6 +64,7 @@ class QueueService
 
         foreach ($queues as $queue) {
             $this->runJob($queue);
+            $queue->delete();
         }
     }
 }
