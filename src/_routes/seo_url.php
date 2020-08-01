@@ -30,7 +30,7 @@ return [
 
                     SeoUrlVm::deleteByCondition(['where' => '1']);
                     foreach ($modelClasses as $modelClass) {
-                        if (!class_implements($modelClass, SeoModelInterface::class)) {
+                        if (!in_array(SeoModelInterface::class, class_implements($modelClass))) {
                             continue;
                         }
 
