@@ -61,7 +61,7 @@ class QueueService
         $where = [['all']];
 
         if ($jobClass) {
-            $where [['=', 'job_class', $jobClass]];
+            $where = [['=', 'job_class', $jobClass]];
         }
 
         /** @var QueueVm $queue */
@@ -70,10 +70,14 @@ class QueueService
             'orderBy' => ['created_at' => SORT_ASC],
         ]);
 
+        $result = null;
+
         if ($queue->id) {
-            $this->runJob($queue);
+            $result = $this->runJob($queue);
             $queue->delete();
         }
+
+        return $result;
     }
 
     /**
