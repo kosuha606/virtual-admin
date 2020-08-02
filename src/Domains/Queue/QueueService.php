@@ -53,6 +53,30 @@ class QueueService
     }
 
     /**
+     * @param null $jobClass
+     * @throws \Exception
+     */
+    public function popAndRunJob($jobClass = null)
+    {
+        $where = [['all']];
+
+        if ($jobClass) {
+            $where [['=', 'job_class', $jobClass]];
+        }
+
+        /** @var QueueVm $queue */
+        $queue = VirtualModelManager::getEntity(QueueVm::class)::one([
+            'where' => $where,
+            'orderBy' => ['created_at' => SORT_ASC],
+        ]);
+
+        if ($queue->id) {
+            $this->runJob($queue);
+            $queue->delete();
+        }
+    }
+
+    /**
      * @throws \Exception
      */
     public function popAndRunAllJobs($jobClass = null)
