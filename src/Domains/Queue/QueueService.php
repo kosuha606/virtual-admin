@@ -11,7 +11,7 @@ class QueueService
      * @param array $args
      * @throws \Exception
      */
-    public function pushJob($jobClass, $args = [])
+    public function pushJob($jobClass, $args = [], $jobId = null)
     {
         try {
             $job = new $jobClass();
@@ -26,6 +26,7 @@ class QueueService
 
         QueueVm::create([
             'job_class' => $jobClass,
+            'job_id' => $jobId,
             'arguments' => json_encode($args, JSON_UNESCAPED_UNICODE),
             'created_at' => date('Y-m-d H:i:s'),
         ])->save();
@@ -54,11 +55,17 @@ class QueueService
     /**
      * @throws \Exception
      */
-    public function popAndRunAllJobs()
+    public function popAndRunAllJobs($jobClass = null)
     {
+        $where = [['all']];
+        
+        if ($jobClass) {
+            $where [['=', 'job_class', $jobClass]];
+        }
+    
         /** @var QueueVm[] $queues */
         $queues = VirtualModelManager::getEntity(QueueVm::class)::many([
-            'where' => [['all']],
+            'where' => $where,
             'orderBy' => ['created_at' => SORT_ASC],
         ]);
 
