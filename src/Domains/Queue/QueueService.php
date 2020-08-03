@@ -101,5 +101,7 @@ class QueueService
             $this->runJob($queue);
             $queue->delete();
         }
+
+        return count($queues);
     }
 }
