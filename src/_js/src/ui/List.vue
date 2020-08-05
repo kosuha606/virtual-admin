@@ -23,10 +23,26 @@
                                 <li class="pagination-item">
                                     <button class="btn btn-default" @click="$refs.mainList.pagination.prevPage()" type="button">Назад</button>
                                 </li>
-                                <li :class="{'pagination-item':1, 'pagination-item__active': $refs.mainList.page == $refs.mainList.pagination.page}" v-for="page in $refs.mainList.helpers.range(1, $refs.mainList.pagination.pagesCount())">
-                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage(page)" type="button">
-                                        {{ page }}
+                                <li style="padding: 0 10px" v-if="$refs.mainList.pagination.page > 1">
+                                    ...
+                                </li>
+                                <li :class="{'pagination-item':1, 'pagination-item__active': 0}" v-if="$refs.mainList.pagination.page > 1">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage($refs.mainList.pagination.page-1)" type="button">
+                                        {{ $refs.mainList.pagination.page-1 }}
                                     </button>
+                                </li>
+                                <li :class="{'pagination-item':1, 'pagination-item__active': 1}">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage($refs.mainList.pagination.page)" type="button">
+                                        {{ $refs.mainList.pagination.page }}
+                                    </button>
+                                </li>
+                                <li :class="{'pagination-item':1, 'pagination-item__active': 0}" v-if="$refs.mainList.pagination.page < $refs.mainList.pagination.pagesCount()">
+                                    <button class="btn btn-default" @click="$refs.mainList.pagination.gotoPage($refs.mainList.pagination.page+1)" type="button">
+                                        {{ $refs.mainList.pagination.page+1 }}
+                                    </button>
+                                </li>
+                                <li style="padding: 0 10px" v-if="$refs.mainList.pagination.page < $refs.mainList.pagination.pagesCount()">
+                                    ...
                                 </li>
                                 <li class="pagination-item">
                                     <button class="btn btn-default" @click="$refs.mainList.pagination.nextPage()" type="button">Вперед</button>
