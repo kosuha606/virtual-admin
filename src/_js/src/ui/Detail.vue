@@ -54,6 +54,9 @@
                             <template v-for="(inDataComponent, index) in dataComponent">
                                 <div>
                                     <detail-field
+                                            :data-index="dataIndex"
+                                            :index="index"
+                                            :ref="'detail_field_'+inDataComponent.field+'_'+index+'_'+dataIndex"
                                             :key="'data_component'+index"
                                             :component="inDataComponent"
                                     >
