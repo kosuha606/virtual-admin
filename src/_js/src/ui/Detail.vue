@@ -57,7 +57,7 @@
                                             :data-index="dataIndex"
                                             :index="index"
                                             :ref="'detail_field_'+inDataComponent.field+'_'+index+'_'+dataIndex"
-                                            :key="'data_component'+index"
+                                            :key="'data_component'+index+'_'+liveCounter"
                                             :component="inDataComponent"
                                     >
                                     </detail-field>
@@ -160,6 +160,7 @@
         },
         data() {
             return {
+                liveCounter: 1,
                 isSuccess: false,
                 isError: false,
                 alertMessage: '',
@@ -229,10 +230,12 @@
             },
             addAdditionalData(additionalIndex, data) {
                 this.additionalComponents[additionalIndex]['dataConfig'].push(cloneDeep(data));
+                this.liveCounter++;
                 this.$forceUpdate();
             },
             deleteAdditionalData(additionalIndex, dataIndex) {
                 this.additionalComponents[additionalIndex]['dataConfig'].splice(dataIndex, 1);
+                this.liveCounter++;
                 this.$forceUpdate();
             },
             appendAdditionalData(serverData) {
