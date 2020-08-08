@@ -74,6 +74,7 @@ class SecondaryFormService
             'masterModelField' => $builder->getMasterModelField(),
             'masterModelClass' => $modelClass,
             'relationType' => $builder->getRelationType(),
+            'viewOnly' => $builder->isViewOnly(),
         ];
 
         $this->sessionService->save(self::SESSION_KEY, $value);
@@ -112,7 +113,19 @@ class SecondaryFormService
             }
         }
 
+        $secondaryClasses = array_keys($sessionConfig->value);
+        unset($secondaryClasses['baseModelId']);
+        unset($secondaryClasses['baseModelClass']);
 
+        foreach ($sessionConfig->value as $modelClass => $modelConfig) {
+            if (!is_array($modelConfig)) {
+                continue;
+            }
+
+            if (!isset($postData[self::SESSION_KEY][$modelClass]) && !$modelConfig['viewOnly']) {
+                $postData[self::SESSION_KEY][$modelClass] = [];
+            }
+        }
 
         /**
          * Создаем новые связанные модели
