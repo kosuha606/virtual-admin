@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div v-if="!detailConfig.noback">
+        <div v-if="!detailConfig.noback && !restoreMode">
             <button @click="back" class="btn btn-default">
                 <i class="fa fa-arrow-left"></i>
                 Назад
             </button>
         </div>
 
-        <hr>
+        <hr v-if="!restoreMode">
 
         <div v-if="alertMessage" :class="{'alert': 1, 'alert-success': isSuccess, 'alert-danger': isError}">
             <div v-html="alertMessage"></div>
@@ -16,11 +16,13 @@
 
         <ul v-if="!detailConfig.notabs" class="nav nav-tabs">
             <li class="nav-item active">
-                <a class="nav-link active" data-toggle="tab" href="#description">Основное</a>
+                <a class="nav-link active" data-toggle="tab" :href="'#'+tabPrefix+'description'">Основное</a>
             </li>
             <template v-if="additionalComponents && item.id">
-                <li v-for="component in additionalComponents" class="nav-item">
-                    <a class="nav-link" data-toggle="tab" :href="'#'+component.tabLink">{{ component.tab }}</a>
+                <li v-for="component in additionalComponents"
+                    v-if="!(component.isViewOnly===true && hideViewOnly===true)"
+                    class="nav-item">
+                    <a class="nav-link" data-toggle="tab" :href="'#'+tabPrefix+component.tabLink">{{ component.tab }}</a>
                 </li>
             </template>
         </ul>
@@ -28,7 +30,7 @@
         <div class="tab-content">
             <p>&nbsp;</p>
 
-            <div class="tab-pane fade active show" id="description">
+            <div class="tab-pane fade active show" :id="tabPrefix+'description'">
                 <div class="form">
                     <slot v-bind:default="formData">
                         <template v-for="(component, index) in formData">
@@ -46,7 +48,9 @@
 
 
             <template v-if="additionalComponents && item.id">
-                <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade" :id="component.tabLink">
+                <div v-for="(component, additionalIndex) in additionalComponents" class="tab-pane fade"
+                     v-if="!(component.isViewOnly===true && hideViewOnly===true)"
+                     :id="tabPrefix+component.tabLink">
                     <div v-if="component.type !== 'one.to.one'">
 
                         <div v-for="(dataComponent, dataIndex) in component.dataConfig">
@@ -88,14 +92,19 @@
         <p>&nbsp;</p>
 
         <div v-if="!detailConfig.nobuttons">
-            <button @click="save" class="btn btn-success">
+            <button v-if="!restoreMode" @click="save" class="btn btn-success">
                 <i class="fa fa-save"></i>
                 Сохранить
             </button>
             <button @click="apply" class="btn btn-primary">
-                Применить
+                <template v-if="restoreMode">
+                    Восстановить
+                </template>
+                <template v-else>
+                    Применить
+                </template>
             </button>
-            <button v-if="this.id" @click="deleteItem" class="btn btn-danger">
+            <button v-if="this.id && !restoreMode" @click="deleteItem" class="btn btn-danger">
                 Удалить
             </button>
         </div>
@@ -111,6 +120,9 @@
         name: "Detail",
         props: {
             id: [String, Number],
+            tabPrefix: String,
+            restoreMode: Boolean,
+            hideViewOnly: Boolean,
             defaultFormData: Object,
             detailConfig: Object,
             saveUrl: String,
