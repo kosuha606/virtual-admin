@@ -19,5 +19,6 @@ class AdminResponseDTO
     {
         $this->html = $html;
         $this->jsVars = $jsVars;
+        $this->json = array_merge($this->json, $jsVars);
     }
 }
