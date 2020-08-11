@@ -54,7 +54,8 @@ class DetailComponents
         $field,
         $label,
         $value,
-        $model
+        $model,
+        $props = []
     ) {
         if (!self::$langs) {
             self::$langs = VirtualModelEntity::allToArray(LangVm::many(['where' => [['all']]]));
@@ -107,13 +108,13 @@ class DetailComponents
                 'items' => $existedItems,
                 'relationClass' => TranslationVm::class
             ],
-            'props' => [
+            'props' => array_merge([
                 'relationClass' => TranslationVm::class,
                 'component' => $component,
                 'langs' => self::$langs,
                 'entity_id' => $model->id,
                 'entity_class' => $modelClass,
-            ]
+            ], $props)
         ];
     }
 
