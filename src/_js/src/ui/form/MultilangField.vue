@@ -7,7 +7,10 @@
 
         <div>
             <div class="langs btn-group" role="group">
-                <button @click="onChangeLang(langIndex)" :class="'btn btn-default'+(curLangIndex===langIndex ? ' active' : '')" v-for="(lang, langIndex) in props.langs">
+                <button @click="onChangeLang(langIndex)"
+                        :class="'btn btn-secondary'+(curLangIndex===langIndex ? ' active' : '')"
+                        :aria-pressed="curLangIndex===langIndex"
+                        v-for="(lang, langIndex) in props.langs">
                     {{ lang.code }}
                 </button>
             </div>
