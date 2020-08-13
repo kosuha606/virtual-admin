@@ -13,6 +13,8 @@ class SecondaryFormService
 {
     const SESSION_KEY = 'secondary_form';
 
+    private $realSessionKey = self::SESSION_KEY;
+
     private $isSessionCleared = false;
 
     private $formTypeCounter = 0;
@@ -39,12 +41,14 @@ class SecondaryFormService
      * @return SecondaryFormBuilder
      * @throws \Exception
      */
-    public function buildForm(): SecondaryFormBuilder
+    public function buildForm(VirtualModelEntity $model = null): SecondaryFormBuilder
     {
         if (
             !$this->isSessionCleared
             && !$this->requestService->request()->isPost
+            && $model
         ) {
+            $this->loadWorkModel($model);
             $this->clearSession();
         }
 
@@ -58,7 +62,7 @@ class SecondaryFormService
      */
     public function rememberForm(SecondaryFormBuilder $builder)
     {
-        $formSession = $this->sessionService->get(self::SESSION_KEY);
+        $formSession = $this->sessionService->get($this->realSessionKey);
 
         $value = [];
         if ($formSession->value) {
@@ -77,22 +81,31 @@ class SecondaryFormService
             'viewOnly' => $builder->isViewOnly(),
         ];
 
-        $this->sessionService->save(self::SESSION_KEY, $value);
+        $this->sessionService->save($this->realSessionKey, $value);
     }
+
+    public function loadWorkModel(VirtualModelEntity $modelEntity)
+    {
+        $modelClassKey = str_replace('\\', '_', get_class($modelEntity));
+        $this->realSessionKey = self::SESSION_KEY.'_'.$modelEntity->id.'_'.$modelClassKey;
+    }
+
 
     /**
      * Выполнить обработку запомненных форм
      * @throws \Exception
      */
-    public function processRememberedForm()
+    public function processRememberedForm(VirtualModelEntity $model)
     {
+        $this->loadWorkModel($model);
+
         if (!$this->requestService->request()->isPost) {
-            // $this->sessionService->remove(self::SESSION_KEY);
+            $this->sessionService->remove($this->realSessionKey);
             return;
         }
 
         $postData = $this->requestService->request()->post;
-        $sessionConfig = $this->sessionService->get(self::SESSION_KEY);
+        $sessionConfig = $this->sessionService->get($this->realSessionKey);
 
         if (isset($postData['id']) && isset($sessionConfig->value['baseModelId'])) {
             if ($postData['id'] !== $sessionConfig->value['baseModelId']) {
@@ -193,9 +206,9 @@ class SecondaryFormService
     /**
      * @throws \Exception
      */
-    private function clearSession()
+    public function clearSession()
     {
         $this->isSessionCleared = true;
-        $this->sessionService->remove(self::SESSION_KEY);
+        $this->sessionService->remove($this->realSessionKey);
     }
 }

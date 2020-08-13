@@ -68,6 +68,7 @@ class SecondaryFormBuilder
     public function setMasterModel($model)
     {
         $this->masterMmodel = $model;
+        $this->formService->loadWorkModel($model);
 
         return $this;
     }

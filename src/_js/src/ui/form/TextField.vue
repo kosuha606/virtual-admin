@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label for="">
+        <label for="" v-if="label">
             {{ label }}
         </label>
         <textarea rows="10" class="form-control" :placeholder="props ? props.placeholder : ''" @keyup="onChange" >{{ value }}</textarea>

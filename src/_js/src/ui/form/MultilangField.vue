@@ -5,7 +5,7 @@
             {{ label }}
         </label>
 
-        <div>
+        <div v-if="props.entity_id">
             <div class="langs btn-group" role="group">
                 <button @click="onChangeLang(langIndex)"
                         :class="'btn btn-secondary'+(curLangIndex===langIndex ? ' active' : '')"

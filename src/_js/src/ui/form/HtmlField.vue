@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label for="">
+        <label for="" v-if="label">
             {{ label }}
         </label>
         <editor v-model="content" @init="editorInit" lang="html" theme="chrome" width="600" height="400"></editor>

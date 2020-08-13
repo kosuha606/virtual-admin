@@ -1,6 +1,6 @@
 <template>
     <div :class="className ? className : 'image-field'">
-        <label for="">
+        <label for="" v-if="label">
             {{ label }}
         </label>
         <div class="image" v-if="!filePath">

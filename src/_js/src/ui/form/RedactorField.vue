@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label for="">
+        <label for="" v-if="label">
             {{ label }}
         </label>
         <ckeditor id="redactor" :config="editorConfig" :editor="editor" v-model="content"></ckeditor>

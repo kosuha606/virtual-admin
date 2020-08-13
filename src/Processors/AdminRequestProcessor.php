@@ -129,15 +129,6 @@ class AdminRequestProcessor
         $this->permissionService->ensureActionAvailable('admin.access', $user);
         $this->ensureConfigCorrect($controller, $action);
 
-        try {
-            TransactionVm::begin('secondary');
-            $this->secondaryFormService->processRememberedForm();
-            TransactionVm::commit('secondary');
-        } catch (\Exception $exception) {
-            TransactionVm::rollback('secondary');
-            throw $exception;
-        }
-
         $handler = $this->config['routes'][$controller][$action]['handler'];
         $response = new AdminResponseDTO('', []);
         $requestData = [
@@ -238,8 +229,16 @@ class AdminRequestProcessor
                         );
                         $handler['item'] = $model;
                         $successMessage = null;
-
                         $this->permissionService->ensureEntityAvailable($model, $user);
+
+                        try {
+                            TransactionVm::begin('secondary');
+                            $this->secondaryFormService->processRememberedForm($model);
+                            TransactionVm::commit('secondary');
+                        } catch (\Exception $exception) {
+                            TransactionVm::rollback('secondary');
+                            throw $exception;
+                        }
 
                         if (!empty($requestData['post'])) {
                             if ($model instanceof ValidatableVirtualModel && !$model->validate()->isValid()) {
