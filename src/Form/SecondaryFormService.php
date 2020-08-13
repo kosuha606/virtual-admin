@@ -87,7 +87,7 @@ class SecondaryFormService
     public function processRememberedForm()
     {
         if (!$this->requestService->request()->isPost) {
-            $this->sessionService->remove(self::SESSION_KEY);
+            // $this->sessionService->remove(self::SESSION_KEY);
             return;
         }
 
