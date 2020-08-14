@@ -90,6 +90,10 @@ class SecondaryFormService
         $this->realSessionKey = self::SESSION_KEY.'_'.$modelEntity->id.'_'.$modelClassKey;
     }
 
+    public function getRealSessionKey()
+    {
+        return $this->realSessionKey;
+    }
 
     /**
      * Выполнить обработку запомненных форм
