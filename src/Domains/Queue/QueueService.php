@@ -11,7 +11,7 @@ class QueueService
      * @param array $args
      * @throws \Exception
      */
-    public function pushJob($jobClass, $args = [], $jobId = null)
+    public function pushJob($jobClass, $args = [], $jobId = null, $startAfter = null)
     {
         try {
             $job = new $jobClass();
@@ -24,12 +24,18 @@ class QueueService
             throw new \LogicException('Some error in job queue push: '.$exception->getMessage());
         }
 
-        QueueVm::create([
+        if (!$startAfter) {
+            $startAfter = date('Y-m-d H:i:s');
+        }
+
+        $queue = QueueVm::create([
             'job_class' => $jobClass,
             'job_id' => $jobId,
             'arguments' => json_encode($args, JSON_UNESCAPED_UNICODE),
             'created_at' => date('Y-m-d H:i:s'),
-        ])->save();
+            'start_after' => $startAfter,
+        ]);
+        $queue->save();
     }
 
     /**
@@ -85,10 +91,13 @@ class QueueService
      */
     public function popAndRunAllJobs($jobClass = null)
     {
-        $where = [['all']];
+        $startAfter = date('Y-m-d H:i:s');
+        $where = [
+            ['<=', 'start_after', $startAfter]
+        ];
         
         if ($jobClass) {
-            $where [['=', 'job_class', $jobClass]];
+            $where[] = ['=', 'job_class', $jobClass];
         }
     
         /** @var QueueVm[] $queues */

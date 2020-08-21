@@ -10,6 +10,7 @@ use kosuha606\VirtualModel\VirtualModelEntity;
  * @property $job_id
  * @property $arguments
  * @property $created_at
+ * @property $start_after
  *
  */
 class QueueVm extends VirtualModelEntity
@@ -21,6 +22,7 @@ class QueueVm extends VirtualModelEntity
             'job_class',
             'job_id',
             'arguments',
+            'start_after',
             'created_at',
         ];
     }
