@@ -150,6 +150,10 @@ class SecondaryFormService
          * @var  $data
          */
         foreach ($postData[self::SESSION_KEY] as $modelClass => $data) {
+            if ($modelConfig['viewOnly']) {
+                continue;
+            }
+
             $sessionModelData = $sessionConfig->value[$modelClass];
 
             if (
