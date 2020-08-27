@@ -10,6 +10,7 @@ use kosuha606\VirtualAdmin\Structures\DetailComponents;
 use kosuha606\VirtualAdmin\Test\Models\ProductVm;
 use kosuha606\VirtualAdmin\Test\TestRequestProvider;
 use kosuha606\VirtualAdmin\Test\TestSessionProvider;
+use kosuha606\VirtualModel\Example\Shop\Model\Product;
 use kosuha606\VirtualModel\VirtualModelManager;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 use kosuha606\VirtualModelHelppack\Test\VirtualTestCase;
@@ -85,12 +86,16 @@ class SecondaryFormManyTest extends VirtualTestCase
     public function testMultiProcess()
     {
         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+
+        $product = ProductVm::one(['where' => [['=', 'id', 1]]]);
+        $secondaryService->processRememberedForm($product);
+
         // Устанавливаем состояние сессии
         $this->sessionProvider->memoryStorage = [
             Session::class => [
                 [
                     'id' => 0,
-                    'key' => 'secondary_form',
+                    'key' => $secondaryService->getRealSessionKey(),
                     'value' => [
                         CommentVm::class => [
                             'masterModelId' => '1,'.ProductVm::class,
@@ -130,8 +135,6 @@ class SecondaryFormManyTest extends VirtualTestCase
                 ]
             ]
         ];
-
-        $secondaryService->processRememberedForm();
 
         $this->assertEquals(2, count($this->provider->memoryStorage[CommentVm::class]));
     }

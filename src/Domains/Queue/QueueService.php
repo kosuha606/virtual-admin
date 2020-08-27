@@ -6,6 +6,8 @@ use kosuha606\VirtualModel\VirtualModelManager;
 
 class QueueService
 {
+    public $exceptionHandler;
+
     /**
      * @param QueueJobInterface $job
      * @param array $args
@@ -107,8 +109,15 @@ class QueueService
         ]);
 
         foreach ($queues as $queue) {
-            $this->runJob($queue);
-            $queue->delete();
+            try {
+                $this->runJob($queue);
+                $queue->delete();
+            } catch (\Exception $exception) {
+                if ($this->exceptionHandler && is_callable($this->exceptionHandler)) {
+                    $handler = $this->exceptionHandler;
+                    $handler($exception);
+                }
+            }
         }
 
         return count($queues);

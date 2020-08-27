@@ -130,12 +130,16 @@ class SecondaryFormTest extends VirtualTestCase
     public function testProcess()
     {
         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+
+        $product = ProductVm::one(['where' => [['=', 'id', 1]]]);
+        $secondaryService->processRememberedForm($product);
+
         // Устанавливаем состояние сессии
         $this->sessionProvider->memoryStorage = [
             Session::class => [
                 [
                     'id' => 0,
-                    'key' => 'secondary_form',
+                    'key' => $secondaryService->getRealSessionKey(),
                     'value' => [
                         ProductRestsVm::class => [
                             'masterModelId' => 1,
@@ -178,8 +182,6 @@ class SecondaryFormTest extends VirtualTestCase
                 ]
             ]
         ];
-
-        $secondaryService->processRememberedForm();
 
         $this->assertTrue(true);
     }
@@ -192,12 +194,16 @@ class SecondaryFormTest extends VirtualTestCase
     public function testMultiProcess()
     {
         $secondaryService = ServiceManager::getInstance()->get(SecondaryFormService::class);
+
+        $product = ProductVm::one(['where' => [['=', 'id', 1]]]);
+        $secondaryService->processRememberedForm($product);
+
         // Устанавливаем состояние сессии
         $this->sessionProvider->memoryStorage = [
             Session::class => [
                 [
                     'id' => 0,
-                    'key' => 'secondary_form',
+                    'key' => $secondaryService->getRealSessionKey(),
                     'value' => [
                         ProductRestsVm::class => [
                             'masterModelId' => 1,
@@ -240,8 +246,6 @@ class SecondaryFormTest extends VirtualTestCase
                 ]
             ]
         ];
-
-        $secondaryService->processRememberedForm();
 
         $this->assertTrue(true);
     }
