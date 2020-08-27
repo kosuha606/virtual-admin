@@ -6,6 +6,8 @@ class Pagination
 {
     public $itemPerPage = 10;
 
+    public $defaultItemPerPage = 10;
+
     public $page = 1;
 
     public $totals = 0;

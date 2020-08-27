@@ -37,6 +37,7 @@
         methods: {
             onChangeImage() {
                 this.filePath = null;
+                this.$emit('input', this.filePath);
             },
             onUpload(e) {
                 const formData = new FormData();
