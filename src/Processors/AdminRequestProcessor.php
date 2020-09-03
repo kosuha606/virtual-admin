@@ -170,7 +170,7 @@ class AdminRequestProcessor
                         $filter = $requestData['get']['filter'] ?? [];
                         $order = $requestData['get']['order'] ?? $defaultOrder;
                         $page  = $requestData['get']['page'] ?? 1;
-                        $itemPerPage = $requestData['get']['itemPerPage'] ?? 10;
+                        $itemPerPage = $requestData['get']['per_page'] ?? 10;
                         $pagination = new Pagination($page, $itemPerPage);
 
                         if (isset($handler['filter']) && is_callable($handler['filter'])) {
