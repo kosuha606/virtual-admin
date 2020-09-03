@@ -66,6 +66,59 @@
                     </div>
                 </div>
             </template>
+            <template v-slot:list>
+                <div v-if="$refs.mainList">
+                    <div class="table-info">
+                        записи с {{ $refs.mainList.pagination.getOffsetBegin()+1 }}
+                        по {{ $refs.mainList.pagination.getOffsetEnd() }},
+                        всего: {{ $refs.mainList.pagination.getTotal() }} шт.
+                        {{ $refs.mainList.pagination.page }}
+                        из {{ $refs.mainList.pagination.pagesCount() }} стр.
+                    </div>
+                    <table :class="{'table table-striped table-bordered': 1, 'table-loading': $refs.mainList.isLoading}">
+                        <thead>
+                        <tr>
+                            <th
+                                    :width="component.attrs ? component.attrs.width : ''"
+                                    v-for="component in $refs.mainList.cellComponents">
+                                {{ component.label }}
+                                <div v-if="component.field && component.props.sort !== false" class="table-sort">
+                                    <button :class="{'btn btn-default': 1, 'table-sort-active': ($refs.mainList.sort.field == component.field) && ($refs.mainList.sort.direction == 'desc')}" @click="$refs.mainList.onSort(component.field, 'desc')" type="button">&uarr;</button>
+                                    <button :class="{'btn btn-default': 1, 'table-sort-active': ($refs.mainList.sort.field == component.field) && ($refs.mainList.sort.direction == 'asc')}" @click="$refs.mainList.onSort(component.field, 'asc')" type="button">&darr;</button>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item, index) in $refs.mainList.items">
+                            <template v-for="component in $refs.mainList.cellComponents">
+                                <component
+                                        v-if="component.massOperation"
+                                        @mass-select="$refs.mainList.onMassComponentSelect($event, component)"
+                                        @mass-unselect="$refs.mainList.onMassComponentUnselect($event, component)"
+                                        :key="index+'_'+component.field+component.label"
+                                        :mass-operations="massOperations"
+                                        :component="component"
+                                        :is="component.component"
+                                        :field="component.field"
+                                        :props="component.props"
+                                        :item="item"
+                                ></component>
+                                <component
+                                        v-else
+                                        :key="index+'_'+component.field+component.label"
+                                        :is="component.component"
+                                        :field="component.field"
+                                        :props="component.props"
+                                        :item="item"
+                                        :value="item[component.field]"
+                                ></component>
+                            </template>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
             <template v-slot:filter>
                 <div class="vue-table-filter" v-if="$refs && $refs.mainList">
                     <div class="row">
@@ -95,6 +148,7 @@
 
 <script>
     import {VueTable} from 'vue-component-table';
+    import StringCell from './concrete/StringCell';
 
     export default {
         name: "List",
@@ -107,7 +161,8 @@
             defaultSort: Object,
         },
         components: {
-            VueTable
+            VueTable,
+            StringCell,
         },
         computed: {
             vueTableFields() {
