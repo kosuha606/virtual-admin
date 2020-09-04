@@ -6,7 +6,7 @@ class CacheAimObserver
 {
     const CACHE_BUILD_DATE = 'cache_built_date';
 
-    private function processAimAction(CacheAimInterface $aim)
+    private function processAimAction(CacheAimInterface $aim, $action)
     {
         /** @var CacheEntityDto $cacheEntityDto */
         foreach ($aim->cacheItems() as $cacheEntityDto) {
@@ -19,6 +19,12 @@ class CacheAimObserver
                 $this->createCacheTable($tableName, $cacheEntityDto->getCacheData());
             }
 
+            $cacheHandler = $cacheEntityDto->getHandler();
+
+            if (is_callable($cacheHandler)) {
+                $cacheHandler($action);
+            }
+
             $this->saveOneEntity($tableName, $cacheEntityDto);
         }
     }
@@ -29,12 +35,12 @@ class CacheAimObserver
      */
     public function afterSave(CacheAimInterface $aim)
     {
-        $this->processAimAction($aim);
+        $this->processAimAction($aim, 'afterSave');
     }
 
     public function afterDelete(CacheAimInterface $aim)
     {
-        $this->processAimAction($aim);
+        $this->processAimAction($aim, 'afterDelete');
     }
 
     public function afterDeleteByCondition($aim)
