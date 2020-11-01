@@ -111,13 +111,13 @@ class QueueService
         foreach ($queues as $queue) {
             try {
                 $this->runJob($queue);
-                $queue->delete();
             } catch (\Exception $exception) {
                 if ($this->exceptionHandler && is_callable($this->exceptionHandler)) {
                     $handler = $this->exceptionHandler;
                     $handler($exception);
                 }
             }
+            $queue->delete();
         }
 
         return count($queues);

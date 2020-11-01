@@ -14,18 +14,22 @@ class CacheEntityDto
 
     private $cacheAction;
 
+    private $handler;
+
     public function __construct(
         $cacheId,
         $cacheIdField,
         $cacheClass,
         $cacheData,
-        $cacheAction = 'insert'
+        $cacheAction = 'insert',
+        $handler = null
     ) {
         $this->cacheId = $cacheId;
         $this->cacheClass = $cacheClass;
         $this->cacheData = $cacheData;
         $this->cacheIdField = $cacheIdField;
         $this->cacheAction = $cacheAction;
+        $this->handler = $handler;
     }
 
     /**
@@ -106,5 +110,21 @@ class CacheEntityDto
     public function setCacheAction($cacheIdField)
     {
         $this->cacheAction = $cacheIdField;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHandler()
+    {
+        return $this->handler;
+    }
+
+    /**
+     * @param mixed $handler
+     */
+    public function setHandler($handler)
+    {
+        $this->handler = $handler;
     }
 }
