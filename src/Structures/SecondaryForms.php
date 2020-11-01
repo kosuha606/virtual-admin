@@ -8,9 +8,6 @@ use kosuha606\VirtualAdmin\Form\SecondaryFormService;
 use kosuha606\VirtualAdmin\Services\StringService;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class SecondaryForms
 {
     /**

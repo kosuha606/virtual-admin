@@ -5,14 +5,14 @@ namespace kosuha606\VirtualAdmin\Services;
 use kosuha606\VirtualAdmin\Model\Request;
 use kosuha606\VirtualModel\VirtualModelManager;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class RequestService
 {
     /** @var Request */
     public static $request;
 
+    /**
+     * @return void
+     */
     public function clearRequest()
     {
         self::$request = null;

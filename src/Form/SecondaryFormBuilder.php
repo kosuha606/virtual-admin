@@ -5,46 +5,54 @@ namespace kosuha606\VirtualAdmin\Form;
 use kosuha606\VirtualAdmin\Services\StringService;
 use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ServiceManager;
-use yii\helpers\Inflector;
 
-/**
- * Строитель, отвечающий за построение второстепенной формы сущности
- */
 class SecondaryFormBuilder
 {
     const ONE_TO_ONE = 'one.to.one';
 
     const ONE_TO_MANY = 'one.to.many';
 
+    /** @var int  */
     private $id;
 
+    /** @var bool  */
     private $viewOnly = false;
 
+    /** @var mixed */
     private $masterMmodel;
 
+    /** @var mixed */
     private $masterModelId;
 
+    /** @var mixed */
     private $masterModelField;
 
+    /** @var mixed */
     private $relationType;
 
+    /** @var array */
     private $relationEntities = [];
 
+    /** @var mixed */
     private $relationClass;
 
+    /** @var string */
     private $tabName = 'Tab';
 
+    /** @var mixed */
     private $config;
-    /**
-     * @var SecondaryFormService
-     */
+
+    /** @var SecondaryFormService */
     private $formService;
 
-    /**
-     * @var StringService
-     */
+    /** @var StringService */
     private $stringService;
 
+    /**
+     * @param SecondaryFormService $formService
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
     public function __construct(
         SecondaryFormService $formService
     ) {
@@ -175,6 +183,7 @@ class SecondaryFormBuilder
 
     /**
      * @param array $relationEntities
+     * @return SecondaryFormBuilder
      */
     public function setRelationEntities(array $relationEntities)
     {

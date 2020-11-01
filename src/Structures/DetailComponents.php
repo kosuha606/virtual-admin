@@ -2,21 +2,18 @@
 
 namespace kosuha606\VirtualAdmin\Structures;
 
-use kosuha606\VirtualAdmin\Form\SecondaryFormBuilder;
 use kosuha606\VirtualAdmin\Form\SecondaryFormService;
 use kosuha606\VirtualAdmin\Domains\Multilang\LangVm;
 use kosuha606\VirtualAdmin\Domains\Multilang\TranslationVm;
 use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModelHelppack\ServiceManager;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class DetailComponents
 {
     /** @var LangVm[] */
     private static $langs;
 
+    /** @var array  */
     private static $translationForms = [];
 
     const INPUT_FIELD = 'InputField';
@@ -97,8 +94,6 @@ class DetailComponents
             $existedItems[] = $translationData;
         }
 
-        $k = 1;
-
         return [
             'field' => $field,
             'label' => $label,
@@ -117,5 +112,4 @@ class DetailComponents
             ], $props)
         ];
     }
-
 }

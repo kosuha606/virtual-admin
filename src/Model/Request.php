@@ -15,11 +15,17 @@ class Request extends VirtualModelEntity
 {
     const TYPE = 'request';
 
+    /**
+     * @return string
+     */
     public static function providerType()
     {
         return self::TYPE;
     }
 
+    /**
+     * @return array
+     */
     public function attributes(): array
     {
         return [

@@ -2,11 +2,13 @@
 
 namespace kosuha606\VirtualAdmin\Services;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class AdminConfigService
 {
+    /**
+     * @param $a
+     * @param $b
+     * @return array|mixed
+     */
     public static function merge($a, $b)
     {
         $args = func_get_args();
@@ -30,6 +32,10 @@ class AdminConfigService
         return $res;
     }
 
+    /**
+     * @param $dir
+     * @return array|mixed
+     */
     public function loadConfigs($dir)
     {
         $files = glob("$dir/*.php");

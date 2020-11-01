@@ -2,13 +2,15 @@
 
 namespace kosuha606\VirtualAdmin\Services;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class MenuService
 {
+    /** @var mixed */
     private $menu;
 
+    /**
+     * @param $config
+     * @return void
+     */
     public function processConfig($config)
     {
         $plainMenu = $config['menu'];
@@ -82,6 +84,7 @@ class MenuService
 
     /**
      * @param mixed $menu
+     * @return void
      */
     public function setMenu($menu)
     {

@@ -5,9 +5,6 @@ namespace kosuha606\VirtualAdmin\Services;
 use kosuha606\VirtualAdmin\Model\Alert;
 use kosuha606\VirtualModel\VirtualModelManager;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class AlertService
 {
     /**

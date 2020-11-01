@@ -6,28 +6,29 @@ use kosuha606\VirtualAdmin\Services\RequestService;
 use kosuha606\VirtualAdmin\Services\SessionService;
 use kosuha606\VirtualModel\VirtualModelEntity;
 
-/**
- * Сервис отвечающий за работу с второстепенными формами сущности
- */
 class SecondaryFormService
 {
     const SESSION_KEY = 'secondary_form';
 
+    /** @var string */
     private $realSessionKey = self::SESSION_KEY;
 
+    /** @var bool */
     private $isSessionCleared = false;
 
+    /** @var int */
     private $formTypeCounter = 0;
 
-    /**
-     * @var SessionService
-     */
+    /** @var SessionService */
     private $sessionService;
-    /**
-     * @var RequestService
-     */
+
+    /** @var RequestService */
     private $requestService;
 
+    /**
+     * @param SessionService $sessionService
+     * @param RequestService $requestService
+     */
     public function __construct(
         SessionService $sessionService,
         RequestService $requestService
@@ -37,7 +38,6 @@ class SecondaryFormService
     }
 
     /**
-     * Построить форму
      * @return SecondaryFormBuilder
      * @throws \Exception
      */
@@ -56,7 +56,6 @@ class SecondaryFormService
     }
 
     /**
-     * Запомнить форму
      * @param SecondaryFormBuilder $builder
      * @throws \Exception
      */
@@ -84,19 +83,25 @@ class SecondaryFormService
         $this->sessionService->save($this->realSessionKey, $value);
     }
 
+    /**
+     * @param VirtualModelEntity $modelEntity
+     */
     public function loadWorkModel(VirtualModelEntity $modelEntity)
     {
         $modelClassKey = str_replace('\\', '_', get_class($modelEntity));
         $this->realSessionKey = self::SESSION_KEY.'_'.$modelEntity->id.'_'.$modelClassKey;
     }
 
+    /**
+     * @return string
+     */
     public function getRealSessionKey()
     {
         return $this->realSessionKey;
     }
 
     /**
-     * Выполнить обработку запомненных форм
+     * @return void
      * @throws \Exception
      */
     public function processRememberedForm(VirtualModelEntity $model)

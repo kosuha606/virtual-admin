@@ -2,11 +2,12 @@
 
 namespace kosuha606\VirtualAdmin\Helpers;
 
-/**
- * @package kosuha606\VirtualAdmin\Helpers
- */
 class ConstructorHelper
 {
+    /**
+     * @param $widgetConfig
+     * @return array|mixed
+     */
     public static function normalizeConfig($widgetConfig)
     {
         $result = [];

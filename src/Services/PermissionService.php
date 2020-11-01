@@ -7,16 +7,12 @@ use kosuha606\VirtualAdmin\Domains\User\UserVm;
 use kosuha606\VirtualModel\VirtualModelEntity;
 use kosuha606\VirtualModel\VirtualModelManager;
 
-/**
- * @package kosuha606\VirtualAdmin\Services
- */
 class PermissionService
 {
     /**
-     * Проверка доступности действия пользователю
-     *
      * @param $action
      * @param $user
+     * @return void
      * @throws \Exception
      */
     public function ensureActionAvailable($action, UserVm $user)
@@ -33,10 +29,9 @@ class PermissionService
     }
 
     /**
-     * Проверка доступности типа сущности пользователю
-     *
      * @param $entity
      * @param $user
+     * @return void
      * @throws \Exception
      */
     public function ensureEntityTypeAvailable($entityType, UserVm $user)
@@ -53,10 +48,9 @@ class PermissionService
     }
 
     /**
-     * Проверка доступности сущности пользователю
-     *
      * @param $entity
      * @param $user
+     * @return void
      * @throws \Exception
      */
     public function ensureEntityAvailable(VirtualModelEntity $entity, UserVm $user)

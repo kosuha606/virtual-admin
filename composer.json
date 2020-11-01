@@ -12,7 +12,8 @@
   "require": {
     "php": ">=7.0.0",
     "kosuha606/virtual-model": ">=1.2.5",
-    "kosuha606/virtual-model-helppack": ">=1.0.1"
+    "kosuha606/virtual-model-helppack": ">=1.0.1",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {

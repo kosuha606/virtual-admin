@@ -12,11 +12,17 @@ class Session extends VirtualModelEntity
 {
     const TYPE = 'session';
 
+    /**
+     * @return string
+     */
     public static function providerType()
     {
         return self::TYPE;
     }
 
+    /**
+     * @return array
+     */
     public function attributes(): array
     {
         return [

@@ -4,6 +4,12 @@ namespace kosuha606\VirtualAdmin\Services;
 
 class StringService
 {
+    /**
+     * @param $data
+     * @param $from
+     * @param $to
+     * @return array
+     */
     public function map($data, $from, $to)
     {
         $result = [];
@@ -15,8 +21,12 @@ class StringService
         return $result;
     }
 
-    function transliterate($string) {
-        $converter = array(
+    /**
+     * @param $string
+     * @return string
+     */
+    public function transliterate($string) {
+        $converter = [
             'а' => 'a',   'б' => 'b',   'в' => 'v',
             'г' => 'g',   'д' => 'd',   'е' => 'e',
             'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
@@ -40,7 +50,8 @@ class StringService
             'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
             'Ь' => '',  'Ы' => 'Y',   'Ъ' => '',
             'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
-        );
+        ];
+
         return strtolower(strtr($string, $converter));
     }
 }

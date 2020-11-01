@@ -10,11 +10,17 @@ use kosuha606\VirtualModel\VirtualModelEntity;
  */
 class Alert extends VirtualModelEntity
 {
+    /**
+     * @return string
+     */
     public static function providerType()
     {
         return 'system_alert';
     }
 
+    /**
+     * @return array
+     */
     public function attributes(): array
     {
         return [

@@ -23,51 +23,45 @@ use kosuha606\VirtualAdmin\Classes\Pagination;
  */
 class AdminRequestProcessor
 {
-    /**
-     * @var AdminConfigService
-     */
+    /** @var AdminConfigService */
     private $adminConfigService;
 
-    /**
-     * @var null|array
-     */
+    /** @var null|array */
     private $config = null;
 
     /** @var AdminControllerInterface */
     private $controller;
 
-    /**
-     * @var MenuService
-     */
+    /** @var MenuService */
     private $menuService;
 
-    /**
-     * @var CrudController
-     */
+    /** @var CrudController */
     private $crudController;
 
-    /**
-     * @var AlertService
-     */
+    /** @var AlertService */
     private $alertService;
 
-    /**
-     * @var PermissionService
-     */
+    /** @var PermissionService */
     private $permissionService;
-    /**
-     * @var UserService
-     */
+
+    /** @var UserService */
     private $userService;
 
     /** @var AdminRoutesLoaderInterface[] */
     private $routeLoaders = [];
 
-    /**
-     * @var SecondaryFormService
-     */
+    /** @var SecondaryFormService */
     private $secondaryFormService;
 
+    /**
+     * @param AdminConfigService $adminConfigService
+     * @param MenuService $menuService
+     * @param CrudController $crudController
+     * @param AlertService $alertService
+     * @param PermissionService $permissionService
+     * @param UserService $userService
+     * @param SecondaryFormService $secondaryFormService
+     */
     public function __construct(
         AdminConfigService $adminConfigService,
         MenuService $menuService,
@@ -87,7 +81,7 @@ class AdminRequestProcessor
     }
 
     /**
-     * Обработка запроса с учетом сложной формы
+     * @description Обработка запроса с учетом сложной формы
      * @param $controller
      * @param $action
      * @param array $requestData
@@ -115,8 +109,8 @@ class AdminRequestProcessor
     }
 
     /**
+     * @todo refactor
      * @description Основной код обработки запроса на действие
-     *
      * @param $controller
      * @param $action
      * @param [] $requestData
@@ -286,7 +280,7 @@ class AdminRequestProcessor
 
     /**
      * @description Проверка того что объект правильно сконфигурирован
-     *
+     * @return void
      * @throws \Exception
      */
     public function ensureConfigCorrect($controller, $action)
@@ -326,6 +320,7 @@ class AdminRequestProcessor
 
     /**
      * @param null $config
+     * @return void
      */
     public function setConfig($config)
     {
@@ -334,6 +329,7 @@ class AdminRequestProcessor
 
     /**
      * @param $dir
+     * @return void
      */
     public function loadConfig($dir = null, $afterMerge = null)
     {
@@ -387,6 +383,9 @@ class AdminRequestProcessor
         $this->controller = $controller;
     }
 
+    /**
+     * @return mixed
+     */
     public function getMenu()
     {
         return $this->menuService->getMenu();
